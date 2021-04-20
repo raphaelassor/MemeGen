@@ -1,22 +1,8 @@
 // images need to be in gallery service.
-var gImgs = [{ id: 1, url: './img/1.jpg', keywords: ['happy'] }];
-var gMeme = {
-    selectedImgId: 0,
-    selectedLineIdx: 0,
-    lines: [{
-        txt: 'I never eat Falafel',
-        align: 'center',
-        fillColor: 'white',
-        isStorke:false,
-        strokeWidth:5,
-        fontSize: 40,
-        fontFamily: 'Impact',
-        pos: {
-            x: 250,
-            y: 50,
-        }
-    }]
-}
+const MEMES_STORAGE='memes'
+var gMeme = _createMeme();
+var gMemes=_createMemes();
+
 //----------GET--------------------
 function getSelectedLineIdx() {
     return gMeme.selectedLineIdx;
@@ -25,50 +11,58 @@ function getSelectedLineIdx() {
 function getSelectedLine() {
     return gMeme.lines[gMeme.selectedLineIdx];
 }
-function getImgURL(imgID) {
-    const img = gImgs.find((img) => img.id === imgID)
-    return img.url
-}
+
 
 function getMeme() {
     return gMeme;
 }
 
+function getMemes(){
+    return gMemes;
+}
 //--------UPDATE---------------
 function updateMemeText(textInput, lineIdx) {
     gMeme.lines[lineIdx].txt = textInput;
 }
-function updateSelectedIdx(idx){
-    gMeme.selectedLineIdx =idx
+function updateSelectedIdx(idx) {
+    gMeme.selectedLineIdx = idx
 }
 function selectLine(selectedLine) {
-    gMeme.selectedLineIdx = gMeme.lines.findIndex(line=>line.txt===selectedLine.txt)
-    console.log('selected idx===',gMeme.selectedLineIdx )
+    gMeme.selectedLineIdx = gMeme.lines.findIndex(line => line.txt === selectedLine.txt)
+    console.log('selected idx===', gMeme.selectedLineIdx)
 }
 
-function updateAlign(align,canvasWidth){
+function updateAlign(align, canvasWidth) {
     let posX;
-    switch(align){
-        case 'right':posX=canvasWidth-20;
-        break;
-        case 'left' : posX=20;
-        break;
-        default: posX=canvasWidth/2
+    switch (align) {
+        case 'right': posX = canvasWidth - 20;
+            break;
+        case 'left': posX = 20;
+            break;
+        default: posX = canvasWidth / 2
     }
-    gMeme.lines[gMeme.selectedLineIdx].pos.x=posX
-    gMeme.lines[gMeme.selectedLineIdx].align=align;
+    gMeme.lines[gMeme.selectedLineIdx].pos.x = posX
+    gMeme.lines[gMeme.selectedLineIdx].align = align;
 }
 
-function updateFontSize(diff){
-    gMeme.lines[gMeme.selectedLineIdx].fontSize+=diff*2
+function updateFontSize(diff) {
+    gMeme.lines[gMeme.selectedLineIdx].fontSize += diff * 2
 }
-function udateColor(color){
-    gMeme.lines[gMeme.selectedLineIdx].fillColor=color;
+function updateColor(color) {
+    gMeme.lines[gMeme.selectedLineIdx].fillColor = color;
 }
-function updateStrokeSize(diff){
-    gMeme.lines[gMeme.selectedLineIdx].strokeWidth+=diff
+function updateStrokeSize(diff) {
+    gMeme.lines[gMeme.selectedLineIdx].strokeWidth += diff
+}
+function updateMemeDataUrl(imgUrl){
+    gMeme.dataUrl=imgUrl
 }
 //------DO-----
+
+function setMeme(memeId){
+   const memeidx= gMemes.findIndex(meme=>memeId===meme.id)
+    gMeme= JSON.parse(JSON.stringify(gMemes[memeidx]))
+}
 
 function doAddLine() {
     let posY;
@@ -84,8 +78,8 @@ function doAddLine() {
         size: 20,
         align: 'center',
         fillColor: 'white',
-        isStorke:false,
-        strokeWidth:5,
+        isStorke: false,
+        strokeWidth: 5,
         fontSize: 40,
         fontFamily: 'Impact',
         pos: {
@@ -97,10 +91,59 @@ function doAddLine() {
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
 }
 
-function doRemoveLine(){
-    gMeme.lines.splice(gMeme.selectedLineIdx,1)
+function doRemoveLine() {
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1)
 }
 
-function doToggleStroke(){
-    gMeme.lines[gMeme.selectedLineIdx].isStroke= (gMeme.lines[gMeme.selectedLineIdx].isStroke)? false:true;
+function doToggleStroke() {
+    gMeme.lines[gMeme.selectedLineIdx].isStroke = (gMeme.lines[gMeme.selectedLineIdx].isStroke) ? false : true;
+}
+
+function setImg(imgId) {
+    gMeme.selectedImgId = imgId;
+    
+}
+
+function saveMeme(){
+    const memeIdx=gMemes.findIndex(meme=>{
+        return meme.id===gMeme.id
+    })
+    if (memeIdx===-1) gMemes.push(gMeme)
+    else  gMemes.splice(memeIdx,1,gMeme)
+    saveToStorage(MEMES_STORAGE,gMemes);
+    console.log(gMemes)
+}
+function resetMeme(){
+    gMeme=_createMeme();
+}
+//------------------------------LOCAL FUNCTIONS---------------------//
+
+function _createMemes() {
+    //get from local storage
+    let memes=loadFromStorage(MEMES_STORAGE);
+    if(!memes)memes=[];
+    return memes;
+}
+function _createMeme() {
+    let meme = {
+        id:makeId(),
+        selectedImgId: 0,
+        selectedImgUrl:'',
+        selectedLineIdx: 0,
+        lines: [{
+            txt: '',
+            align: 'center',
+            fillColor: 'white',
+            isStorke: false,
+            strokeWidth: 5,
+            fontSize: 40,
+            fontFamily: 'Impact',
+            pos: {
+                x: 250,
+                y: 50,
+            }
+        }],
+        dataUrl:''
+    }
+    return meme;
 }

@@ -13,46 +13,86 @@
     <header>
         <h1>this is the meme editor</h1>
         <nav>
-            <a href="#">Gallery</a>
+            <a href="#" onclick="onMoveToGallery()">Gallery</a>
             <a href="#">About</a>
-            <a href="#">Memes</a>
+            <a href="#" onclick="onMoveToMemes()">Memes</a>
         </nav>
     </header>
     <main>
-        <div class="meme-grid">
-            <div class="main-meme-container">
-                <canvas width="500" height="500" class="main-meme-canvas"></canvas>
-                <canvas width="500" height="500" 
-                onmousemove="onDrag(event)" class="edit-canvas" onmousedown="onCanvasClick(event)" onmouseup="onFinishDrag()"></canvas>
-            </div>
-            <div class="editor-container">
-                <input type="text" placeholder="enter a line to the meme" oninput="onInputText(this.value)">
-                <button onclick="onAddLine()">Add</button>
-                <form >
-                    <label for="align-center" >Center</label>
-                    <input type="radio" id="align-center" name ='text-align' value="center" onclick="onChangeAlign('center')"> 
-                    <label for="align-left">Left</label>
-                    <input type="radio" id="align-left" value="left" name ='text-align' onclick="onChangeAlign('left')" > 
-                    <label for="align-right">Right</label>
-                    <input type="radio" id="align-right" value="right" name ='text-align'onclick="onChangeAlign('right')">
+        <section class="gallery-page">
+            <div class="search-container">
+                <form action="">
+                    <input type="text" placeholder="search for memes">
+                    <button>Search</button>
                 </form>
-                    <button onclick="onChangeFontSize(1)">+</button>
-                <button onclick="onChangeFontSize(-1)">-</button>
-                <button onclick="onRemove()">Delete</button>
-                <label for="fill-color">Color</label>
-                <input type="color" id="fill-color" onchange="onChangeColor(this.value)">
-                <label for="toggle-stroke">Outline</label>
-                <input type="checkbox" id="toggle-stroke" onclick="onToggleStroke()">
-                <button onclick="onChangeStrokeSize(1)">+</button>
-                <button onclick="onChangeStrokeSize(-1)">-</button>
+                <div class="keyword-box"></div>
             </div>
-        </div>
-    </div>
+            <div class="gallery-container">
+                <!-- <img src="./img/1.jpg" alt="" onclick="onGalleryImgClick(1)"> -->
+                
+            </div>
+        </section>
+        <section class="meme-page">
+            <div class="meme-grid">
+                <div class="main-meme-container">
+                    <canvas width="500" height="500" class="main-meme-canvas"></canvas>
+                    <canvas width="500" height="500" onmousemove="onDrag(event)" class="edit-canvas"
+                        onmousedown="onCanvasClick(event)" onmouseup="onFinishDrag()"></canvas>
+                </div>
+                <div class="editor-container">
+                    <input type="text" placeholder="enter a line to the meme" oninput="onInputText(this.value)">
+                    <button onclick="onAddLine()">Add</button>
+                    <form>
+                        <label for="align-center">Center</label>
+                        <input type="radio" id="align-center" name='text-align' value="center"
+                            onclick="onChangeAlign('center')">
+                        <label for="align-left">Left</label>
+                        <input type="radio" id="align-left" value="left" name='text-align'
+                            onclick="onChangeAlign('left')">
+                        <label for="align-right">Right</label>
+                        <input type="radio" id="align-right" value="right" name='text-align'
+                            onclick="onChangeAlign('right')">
+                    </form>
+                    <button onclick="onChangeFontSize(1)">+</button>
+                    <button onclick="onChangeFontSize(-1)">-</button>
+                    <button onclick="onRemove()">Delete</button>
+                    <label for="fill-color">Color</label>
+                    <input type="color" id="fill-color" onchange="onChangeColor(this.value)">
+                    <label for="toggle-stroke">Outline</label>
+                    <input type="checkbox" id="toggle-stroke" onclick="onToggleStroke()">
+                    <button onclick="onChangeStrokeSize(1)">+</button>
+                    <button onclick="onChangeStrokeSize(-1)">-</button>
+                    <button onclick="onSaveMeme()">Save</button>
+                    <a href="#" download="myAmazingMeme.jpg" onclick="onDownloadImg(this)">Download</a>
+                    <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                        <input name="img" id="imgData" type="hidden" />
+                        <button>Share</button>
+                        <div class="share-container"></div>
+                      </form>
+                  
+                </div>
+            </div>
+        </section>
+        <section class="my-memes-page">
+            
+                <h2>my memes</h2>
+        
+                <div class="my-memes-container">
+                    
+                        <!-- <button onclick="onThumbnailImgClick()">Open</button>
+                        <button>Download</button>
+                        <button>Delete</button>
+                        <button>Share</button>  -->
+                </div>
+        
+        </section>
     </main>
 
-
-    <script src="./js/meme-controller.js"></script>
+    <script src="./js/util.js"></script>
+    <script src="./js/service/storage-service.js"></script>
+    <script src="./js/service/gallery-service.js"></script>
     <script src="./js/service/meme-service.js"></script>
+    <script src="./js/meme-controller.js"></script>
 </body>
 
 </html>

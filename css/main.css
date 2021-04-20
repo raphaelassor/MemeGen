@@ -18,6 +18,22 @@ main{
     width: 100vw;
     padding:0px 20px
 }
+/* GALLERY */
+
+.gallery-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gallery-container img{
+    margin: 5px;
+    max-width: 200px;
+    object-fit: contain;
+}
+/* MEME */
+.meme-page{
+    display: none;
+}
 .meme-grid{
     display: grid;
     grid-template: 500px 1fr/500px 1fr;
@@ -31,4 +47,8 @@ main{
 canvas{
     border: 1px solid black;
     position:absolute;
+}
+/* My Memes */
+.my-memes-page{
+    display: none;
 }
