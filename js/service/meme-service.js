@@ -52,6 +52,7 @@ function updateColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].fillColor = color;
 }
 function updateStrokeSize(diff) {
+    if(!gMeme.lines[gMeme.selectedLineIdx].isStroke) return
     gMeme.lines[gMeme.selectedLineIdx].strokeWidth += diff
 }
 function updateMemeDataUrl(imgUrl){
@@ -77,9 +78,9 @@ function doAddLine() {
         txt: 'Type A Funny Line',
         size: 20,
         align: 'center',
-        fillColor: 'white',
-        isStorke: false,
-        strokeWidth: 5,
+        fillColor: '#ffffff',
+        isStroke: false,
+        strokeWidth: 7,
         fontSize: 40,
         fontFamily: 'Impact',
         pos: {
@@ -95,8 +96,8 @@ function doRemoveLine() {
     gMeme.lines.splice(gMeme.selectedLineIdx, 1)
 }
 
-function doToggleStroke() {
-    gMeme.lines[gMeme.selectedLineIdx].isStroke = (gMeme.lines[gMeme.selectedLineIdx].isStroke) ? false : true;
+function doToggleStroke(isStroke) {
+    gMeme.lines[gMeme.selectedLineIdx].isStroke = isStroke
 }
 
 function setImg(imgId) {
@@ -133,9 +134,9 @@ function _createMeme() {
         lines: [{
             txt: '',
             align: 'center',
-            fillColor: 'white',
-            isStorke: false,
-            strokeWidth: 5,
+            fillColor: '#ffffff',
+            isStroke: false,
+            strokeWidth: 7,
             fontSize: 40,
             fontFamily: 'Impact',
             pos: {

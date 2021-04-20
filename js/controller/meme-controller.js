@@ -19,6 +19,16 @@ function renderMemeEditPage(imgId) {
     drawImg(imgId);
     renderCanvas();
 }
+function renderLineSettings(){
+    const meme=getMeme()
+    const line=meme.lines[meme.selectedLineIdx]
+    document.querySelector('.editor-container input[type="text"]').value=line.txt
+    document.querySelector('.editor-container input[type="color"]').value=line.fillColor
+    document.querySelector('.editor-container input[name="toggle-stroke"]').checked=line.isStroke
+    document.querySelector(`.editor-container form input[value="${line.align}"]`).checked=true;
+   
+
+}
 // USER CALLS 
 
 function onInputText(textInput) {
@@ -30,8 +40,9 @@ function onInputText(textInput) {
 function onAddLine() {
     doAddLine()
     const line = getSelectedLine()
-    console.log(line)
     drawText(line)
+    renderLineSettings()
+    document.querySelector('.editor-container input[type="text"]').value=''
 
 }
 function onChangeAlign(align) {
@@ -52,7 +63,8 @@ function onChangeColor(color) {
 }
 
 function onToggleStroke() {
-    doToggleStroke();
+    console.log(document.querySelector('.editor-container input[name="toggle-stroke"]').checked)
+    doToggleStroke(document.querySelector('.editor-container input[name="toggle-stroke"]').checked);
     renderCanvas()
 }
 function onChangeStrokeSize(diff) {
@@ -65,7 +77,10 @@ function onSaveMeme() {
     drawImg(getMeme().selectedImgId)
 }
 function captureImgCanvas() {
-    copyCanvases()
+    let meme = getMeme();
+    meme.lines.forEach((line) => {
+        drawText(line, gMainCtx)
+    });
     const imgUrl = getMemeImgUrl()
     updateMemeDataUrl(imgUrl)
 }
@@ -116,10 +131,7 @@ function getMemeImgUrl() {
     return imgContent
 }
 //CANVAS MANIPLULATION
-function copyCanvases() {
-    var imgData = gEditCtx.getImageData(0, 0, gEditCanvas.width, gEditCanvas.height);
-    gMainCtx.putImageData(imgData, gMainCanvas.width, gMainCanvas.height);
-}
+
 function drawImg(imgId) {
     gMainCtx.clearRect(0, 0, gMainCanvas.width, gMainCanvas.height)
     const imgUrl = getImgURL(imgId)
@@ -144,8 +156,8 @@ function drawText(line, ctx = gEditCtx) {
     ctx.textAlign = line.align
     ctx.textBaseline = 'middle';
     if (line.isStroke) {
-        ctx.strokeText(line.txt, line.pos.x, line.pos.y)
         ctx.lineWidth = line.strokeWidth
+        ctx.strokeText(line.txt, line.pos.x, line.pos.y)
     }
     ctx.fillText(line.txt, line.pos.x, line.pos.y)
 }
@@ -190,6 +202,7 @@ function onCanvasClick(ev) {
 
     if (selectedIdx === -1) return
     updateSelectedIdx(selectedIdx);
+    renderLineSettings();
     startDrag(pos)
 }
 function onFinishDrag(ev) {
@@ -246,6 +259,7 @@ function getEvPos(ev) {
 //     gStickerSrc = imgSrc
 //     gIsStickerDrag = true
 // }
+
 ////GALLERY FUNCTIONS////////////
 
 function onThumbnailMemeClick(imgId) {
@@ -257,18 +271,11 @@ function onThumbnailMemeClick(imgId) {
 function onMoveToGallery() {
     document.querySelector('.gallery-page').style.display = 'block';
     document.querySelector('.meme-page').style.display = 'none';
-    ocument.querySelector('.my-memes-page').style.display = 'none'
+    document.querySelector('.my-memes-page').style.display = 'none'
     resetMeme()
     renderGalleryPage();
 }
-function renderGalleryPage() {
 
-    imgs = getImgs()
-    let strHtml = imgs.map(img => {
-        return `<img src="${img.url}" alt="" onclick="onThumbnailMemeClick(${img.id})"></img>`
-    })
-    document.querySelector('.gallery-container').innerHTML = strHtml.join();
-}
 //// MEMES PAGE FUNCTIONS//////
 
 function onMoveToMemes() {
@@ -282,7 +289,7 @@ function onMoveToMemes() {
         <button onclick="onOpenMyMeme('${meme.id}')">Open</button>
     </div>`
     })
-    document.querySelector('.my-memes-container').innerHTML = strHtml.join()
+    document.querySelector('.my-memes-container').innerHTML = strHtml.join('')
     document.querySelector('.gallery-page').style.display = 'none';
     document.querySelector('.meme-page').style.display = 'none';
     document.querySelector('.my-memes-page').style.display = 'block';

@@ -21,11 +21,9 @@
     <main>
         <section class="gallery-page">
             <div class="search-container">
-                <form action="">
-                    <input type="text" placeholder="search for memes">
-                    <button>Search</button>
-                </form>
-                <div class="keyword-box"></div>
+                <input type="text" placeholder="search for memes" oninput="onSearchGallery(this.value)">
+                <div class="keyword-box">
+                </div>
             </div>
             <div class="gallery-container">
                 <!-- <img src="./img/1.jpg" alt="" onclick="onGalleryImgClick(1)"> -->
@@ -45,7 +43,7 @@
                     <form>
                         <label for="align-center">Center</label>
                         <input type="radio" id="align-center" name='text-align' value="center"
-                            onclick="onChangeAlign('center')">
+                            onclick="onChangeAlign('center')" checked>
                         <label for="align-left">Left</label>
                         <input type="radio" id="align-left" value="left" name='text-align'
                             onclick="onChangeAlign('left')">
@@ -57,9 +55,9 @@
                     <button onclick="onChangeFontSize(-1)">-</button>
                     <button onclick="onRemove()">Delete</button>
                     <label for="fill-color">Color</label>
-                    <input type="color" id="fill-color" onchange="onChangeColor(this.value)">
+                    <input type="color" id="fill-color" value="#ffffff" onchange="onChangeColor(this.value)">
                     <label for="toggle-stroke">Outline</label>
-                    <input type="checkbox" id="toggle-stroke" onclick="onToggleStroke()">
+                    <input type="checkbox" id="toggle-stroke" name="toggle-stroke"onclick="onToggleStroke()">
                     <button onclick="onChangeStrokeSize(1)">+</button>
                     <button onclick="onChangeStrokeSize(-1)">-</button>
                     <button onclick="onSaveMeme()">Save</button>
@@ -71,7 +69,7 @@
                     </form>
 
                     <div class="gifs-container">
-        
+
                     </div>
 
                 </div>
@@ -96,7 +94,8 @@
     <script src="./js/service/storage-service.js"></script>
     <script src="./js/service/gallery-service.js"></script>
     <script src="./js/service/meme-service.js"></script>
-    <script src="./js/meme-controller.js"></script>
+    <script src="./js/controller/gallery-controller.js"></script>
+    <script src="./js/controller/meme-controller.js"></script>
 </body>
 
 </html>
