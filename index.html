@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Document</title>
+</head>
+
+<body onload="init()">
+    <header>
+        <h1>this is the meme editor</h1>
+        <nav>
+            <a href="#">Gallery</a>
+            <a href="#">About</a>
+            <a href="#">Memes</a>
+        </nav>
+    </header>
+    <main>
+        <div class="meme-grid">
+            <div class="main-meme-container">
+                <canvas width="500" height="500" class="main-meme-canvas"></canvas>
+                <canvas width="500" height="500" 
+                onmousemove="onDrag(event)" class="edit-canvas" onmousedown="onCanvasClick(event)" onmouseup="onFinishDrag()"></canvas>
+            </div>
+            <div class="editor-container">
+                <input type="text" placeholder="enter a line to the meme" oninput="onInputText(this.value)">
+                <button onclick="onAddLine()">Add</button>
+                <form >
+                    <label for="align-center" >Center</label>
+                    <input type="radio" id="align-center" name ='text-align' value="center" onclick="onChangeAlign('center')"> 
+                    <label for="align-left">Left</label>
+                    <input type="radio" id="align-left" value="left" name ='text-align' onclick="onChangeAlign('left')" > 
+                    <label for="align-right">Right</label>
+                    <input type="radio" id="align-right" value="right" name ='text-align'onclick="onChangeAlign('right')">
+                </form>
+                    <button onclick="onChangeFontSize(1)">+</button>
+                <button onclick="onChangeFontSize(-1)">-</button>
+                <button onclick="onRemove()">Delete</button>
+                <label for="fill-color">Color</label>
+                <input type="color" id="fill-color" onchange="onChangeColor(this.value)">
+                <label for="toggle-stroke">Outline</label>
+                <input type="checkbox" id="toggle-stroke" onclick="onToggleStroke()">
+                <button onclick="onChangeStrokeSize(1)">+</button>
+                <button onclick="onChangeStrokeSize(-1)">-</button>
+            </div>
+        </div>
+    </div>
+    </main>
+
+
+    <script src="./js/meme-controller.js"></script>
+    <script src="./js/service/meme-service.js"></script>
+</body>
+
+</html>
