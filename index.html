@@ -29,7 +29,7 @@
             </div>
             <div class="gallery-container">
                 <!-- <img src="./img/1.jpg" alt="" onclick="onGalleryImgClick(1)"> -->
-                
+
             </div>
         </section>
         <section class="meme-page">
@@ -37,7 +37,7 @@
                 <div class="main-meme-container">
                     <canvas width="500" height="500" class="main-meme-canvas"></canvas>
                     <canvas width="500" height="500" onmousemove="onDrag(event)" class="edit-canvas"
-                        onmousedown="onCanvasClick(event)" onmouseup="onFinishDrag()"></canvas>
+                        onmousedown="onCanvasClick(event)" onmouseup="onFinishDrag(event)"></canvas>
                 </div>
                 <div class="editor-container">
                     <input type="text" placeholder="enter a line to the meme" oninput="onInputText(this.value)">
@@ -68,23 +68,27 @@
                         <input name="img" id="imgData" type="hidden" />
                         <button>Share</button>
                         <div class="share-container"></div>
-                      </form>
-                  
+                    </form>
+
+                    <div class="gifs-container">
+        
+                    </div>
+
                 </div>
             </div>
         </section>
         <section class="my-memes-page">
-            
-                <h2>my memes</h2>
-        
-                <div class="my-memes-container">
-                    
-                        <!-- <button onclick="onThumbnailImgClick()">Open</button>
+
+            <h2>my memes</h2>
+
+            <div class="my-memes-container">
+
+                <!-- <button onclick="onThumbnailImgClick()">Open</button>
                         <button>Download</button>
                         <button>Delete</button>
                         <button>Share</button>  -->
-                </div>
-        
+            </div>
+
         </section>
     </main>
 

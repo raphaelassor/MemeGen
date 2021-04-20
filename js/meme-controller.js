@@ -4,6 +4,8 @@ var gEditCanvas;
 var gEditCtx;
 var gStartPos;
 var gIsDrag;
+var gStickerSrc;
+var gIsStickerDrag;
 
 function init() {
     renderGalleryPage();
@@ -62,25 +64,22 @@ function onSaveMeme() {
     saveMeme()
     drawImg(getMeme().selectedImgId)
 }
-function captureImgCanvas(){
-    let meme = getMeme();
-    meme.lines.forEach((line) => {
-        drawText(line,gMainCtx)
-    });
-    const imgUrl=getMemeImgUrl()
+function captureImgCanvas() {
+    copyCanvases()
+    const imgUrl = getMemeImgUrl()
     updateMemeDataUrl(imgUrl)
 }
 
-function onDownloadImg(elLink){
+function onDownloadImg(elLink) {
     captureImgCanvas()
-    elLink.href=getMemeImgUrl()
+    elLink.href = getMemeImgUrl()
     drawImg(getMeme().selectedImgId)
 }
 ////--------------SHARE SHIT ------------------------//
 function uploadImg(elForm, ev) {
     ev.preventDefault();
     captureImgCanvas()
-    let imgUrl=getMemeImgUrl()
+    let imgUrl = getMemeImgUrl()
     drawImg(getMeme().selectedImgId)
     document.getElementById('imgData').value = imgUrl;
     // A function to be called if request succeeds
@@ -111,20 +110,18 @@ function doUploadImg(elForm, onSuccess) {
         })
 }
 /////////-----------------------------------------------------
-function onShare(elLink){
-    captureImgCanvas()
-   let imgUrl=getMemeImgUrl()
-    // imgUrl=encodeURIComponent(imgUrl)
-    elLink.href=`https://www.facebook.com/sharer/sharer.php?u=${imgUrl}&t=${imgUrl}`
-    drawImg(getMeme().selectedImgId)
-}
+
 function getMemeImgUrl() {
     var imgContent = gMainCanvas.toDataURL('image/jpeg')
     return imgContent
 }
 //CANVAS MANIPLULATION
+function copyCanvases() {
+    var imgData = gEditCtx.getImageData(0, 0, gEditCanvas.width, gEditCanvas.height);
+    gMainCtx.putImageData(imgData, gMainCanvas.width, gMainCanvas.height);
+}
 function drawImg(imgId) {
-    gMainCtx.clearRect(0,0,gMainCanvas.width, gMainCanvas.height)
+    gMainCtx.clearRect(0, 0, gMainCanvas.width, gMainCanvas.height)
     const imgUrl = getImgURL(imgId)
     img = new Image()
     img.src = imgUrl;
@@ -132,16 +129,16 @@ function drawImg(imgId) {
         gMainCtx.drawImage(img, 0, 0, gMainCanvas.width, gMainCanvas.height)
     }
 }
-function renderCanvas(canvas=gEditCanvas,ctx=gEditCtx) {
+function renderCanvas(canvas = gEditCanvas, ctx = gEditCtx) {
     let meme = getMeme();
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     meme.lines.forEach((line) => {
-        drawText(line,ctx)
+        drawText(line, ctx)
     });
     // if (meme.selectedLineIdx !== -1) drawSelect(meme.lines[meme.selectedLineIdx])
 
 }
-function drawText(line,ctx=gEditCtx) {
+function drawText(line, ctx = gEditCtx) {
     ctx.fillStyle = line.fillColor
     ctx.font = `${line.fontSize}px ${line.fontFamily}`
     ctx.textAlign = line.align
@@ -196,9 +193,20 @@ function onCanvasClick(ev) {
     startDrag(pos)
 }
 function onFinishDrag(ev) {
+    console.log('on finish')
     // if(ev.type==='touchend') ev.preventDefault();
     gIsDrag = false;
     document.body.style.cursor = 'auto'
+    // if (gIsStickerDrag) {
+    //     const{x,y}=getEvPos(ev)
+    //     img = new Image()
+    //     img.src = gStickerSrc;
+    //     img.onload = () => {
+    //         gEditCtx.drawImage(img, x, y, gEditCanvas.width, gEditCanvas.height)
+    //     }
+    //     gIsStickerDrag=false;
+    //     gStickerSrc='';
+    // }
 }
 function startDrag(pos) {
     gIsDrag = true;
@@ -216,6 +224,8 @@ function onDrag(ev) {
     gStartPos = pos
     renderCanvas()
 }
+
+
 function getEvPos(ev) {
     const pos = {
         x: ev.offsetX,
@@ -232,7 +242,10 @@ function getEvPos(ev) {
     return pos
 }
 
-
+// function onStickerDrag(imgSrc) {
+//     gStickerSrc = imgSrc
+//     gIsStickerDrag = true
+// }
 ////GALLERY FUNCTIONS////////////
 
 function onThumbnailMemeClick(imgId) {
@@ -244,7 +257,7 @@ function onThumbnailMemeClick(imgId) {
 function onMoveToGallery() {
     document.querySelector('.gallery-page').style.display = 'block';
     document.querySelector('.meme-page').style.display = 'none';
-    ocument.querySelector('.my-memes-page').style.display='none'
+    ocument.querySelector('.my-memes-page').style.display = 'none'
     resetMeme()
     renderGalleryPage();
 }
@@ -272,14 +285,14 @@ function onMoveToMemes() {
     document.querySelector('.my-memes-container').innerHTML = strHtml.join()
     document.querySelector('.gallery-page').style.display = 'none';
     document.querySelector('.meme-page').style.display = 'none';
-    document.querySelector('.my-memes-page').style.display='block';
+    document.querySelector('.my-memes-page').style.display = 'block';
 }
 
 function onOpenMyMeme(memeId) {
     setMeme(memeId)
-    const meme=getMeme()
+    const meme = getMeme()
     document.querySelector('.gallery-page').style.display = 'none';
-    document.querySelector('.my-memes-page').style.display='none'
+    document.querySelector('.my-memes-page').style.display = 'none'
     document.querySelector('.meme-page').style.display = 'block';
     renderMemeEditPage(meme.selectedImgId)
 }
