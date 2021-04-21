@@ -25,7 +25,10 @@ function updateMemeText(textInput, lineIdx) {
     gMeme.lines[lineIdx].txt = textInput;
 }
 function updateSelectedIdx(idx) {
-    gMeme.selectedLineIdx = idx
+    gMeme.lines.forEach(line=>line.isSelected=false)
+    if(idx!==-1)gMeme.lines[idx].isSelected=true
+    gMeme.selectedLineIdx = idx;
+    
 }
 function selectLine(selectedLine) {
     gMeme.selectedLineIdx = gMeme.lines.findIndex(line => line.txt === selectedLine.txt)
@@ -65,14 +68,14 @@ function setMeme(memeId){
     gMeme= JSON.parse(JSON.stringify(gMemes[memeidx]))
 }
 
-function doAddLine() {
+function doAddLine(canvas) {
     let posY;
     switch (gMeme.lines.length) {
         case 0: posY = 50
             break;
-        case 1: posY = 450
+        case 1: posY = canvas.height-50
             break;
-        default: posY = 220
+        default: posY = canvas.height/2
     }
     let line = {
         txt: 'Type A Funny Line',
@@ -80,16 +83,18 @@ function doAddLine() {
         align: 'center',
         fillColor: '#ffffff',
         isStroke: false,
+        isSelected:true,
         strokeWidth: 7,
         fontSize: 40,
         fontFamily: 'Impact',
         pos: {
-            x: 250,
+            x: canvas.width/2,
             y: posY,
         }
     }
     gMeme.lines.push(line)
-    gMeme.selectedLineIdx = gMeme.lines.length - 1;
+    updateSelectedIdx(gMeme.lines.length - 1)
+    
 }
 
 function doRemoveLine() {
@@ -138,9 +143,10 @@ function _createMeme() {
             isStroke: false,
             strokeWidth: 7,
             fontSize: 40,
+            isSelected:true,
             fontFamily: 'Impact',
             pos: {
-                x: 250,
+                x: 200,
                 y: 50,
             }
         }],

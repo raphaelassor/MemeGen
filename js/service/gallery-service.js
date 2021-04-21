@@ -8,6 +8,7 @@ var gImgs = [
     { id: 4, url: './img/4.jpg', keywords: ['happy','political','nice'] },
     { id: 5, url: './img/5.jpg', keywords: ['happy'] },
     { id: 6, url: './img/6.jpg', keywords: ['happy'] },
+    { id: 8, url: './img/8.jpg', keywords: ['happy'] },
     
 ];
 

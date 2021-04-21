@@ -10,26 +10,31 @@
 </head>
 
 <body onload="init()">
-    <header>
-        <h1>this is the meme editor</h1>
-        <nav>
-            <a href="#" onclick="onMoveToGallery()">Gallery</a>
-            <a href="#">About</a>
-            <a href="#" onclick="onMoveToMemes()">Memes</a>
-        </nav>
+    <header class="main-container">
+        <div class="header-content secondary-container flex space-between">
+            <div class="logo">Meme-Gen</div>
+            <nav class="nav-bar">
+                <a href="#" onclick="onMoveToGallery()">Gallery</a>
+                <a href="#">About</a>
+                <a href="#" onclick="onMoveToMemes()">Memes</a>
+        </div>
+        </div>
     </header>
     <main>
-        <section class="gallery-page">
+        <div class="gallery-page main-container flex-column">
             <div class="search-container">
-                <input type="text" placeholder="search for memes" oninput="onSearchGallery(this.value)">
+                <div class="search-input-container">
+                    <input type="text" placeholder="search for memes" oninput="onSearchGallery(this.value)">
+                    <img src="./img/search-bar.png" alt="">
+                </div>
                 <div class="keyword-box">
                 </div>
             </div>
-            <div class="gallery-container">
+            <div class="gallery-container ">
                 <!-- <img src="./img/1.jpg" alt="" onclick="onGalleryImgClick(1)"> -->
 
             </div>
-        </section>
+        </div>
         <section class="meme-page">
             <div class="meme-grid">
                 <div class="main-meme-container">
@@ -37,39 +42,63 @@
                     <canvas width="500" height="500" onmousemove="onDrag(event)" class="edit-canvas"
                         onmousedown="onCanvasClick(event)" onmouseup="onFinishDrag(event)"></canvas>
                 </div>
-                <div class="editor-container">
-                    <input type="text" placeholder="enter a line to the meme" oninput="onInputText(this.value)">
-                    <button onclick="onAddLine()">Add</button>
-                    <form>
-                        <label for="align-center">Center</label>
-                        <input type="radio" id="align-center" name='text-align' value="center"
-                            onclick="onChangeAlign('center')" checked>
-                        <label for="align-left">Left</label>
-                        <input type="radio" id="align-left" value="left" name='text-align'
-                            onclick="onChangeAlign('left')">
-                        <label for="align-right">Right</label>
-                        <input type="radio" id="align-right" value="right" name='text-align'
-                            onclick="onChangeAlign('right')">
-                    </form>
-                    <button onclick="onChangeFontSize(1)">+</button>
-                    <button onclick="onChangeFontSize(-1)">-</button>
-                    <button onclick="onRemove()">Delete</button>
-                    <label for="fill-color">Color</label>
-                    <input type="color" id="fill-color" value="#ffffff" onchange="onChangeColor(this.value)">
-                    <label for="toggle-stroke">Outline</label>
-                    <input type="checkbox" id="toggle-stroke" name="toggle-stroke"onclick="onToggleStroke()">
-                    <button onclick="onChangeStrokeSize(1)">+</button>
-                    <button onclick="onChangeStrokeSize(-1)">-</button>
-                    <button onclick="onSaveMeme()">Save</button>
-                    <a href="#" download="myAmazingMeme.jpg" onclick="onDownloadImg(this)">Download</a>
-                    <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
-                        <input name="img" id="imgData" type="hidden" />
-                        <button>Share</button>
-                        <div class="share-container"></div>
-                    </form>
-
-                    <div class="gifs-container">
-
+                <div class="editor-background">
+                    <div class="editor-container flex-column">
+                        <input type="text" placeholder="enter a line to the meme" oninput="onInputText(this.value)">
+                        <div class="edit-action-buttons flex justify-center">
+                            <button class="editor-btn btn-add" onclick="onAddLine()">+</button>
+                            <button class="editor-btn btn-remove" onclick="onRemove()">delete</button>
+                            <button  class="editor-btn btn-switch"onclick="onSwitchLines()">->-</button>
+                        </div>
+                        <div class="edit-line-settings">
+                            <button class="editor-btn btn-line-settings" onclick="onChangeFontSize(1)">+</button>
+                            <button class="editor-btn btn-line-settings" onclick="onChangeFontSize(-1)">-</button>
+                            <form>
+                                <input type="radio" id="align-left" value="left" name='text-align'
+                                onclick="onChangeAlign('left')">
+                                <label  class="editor-btn btn-line-settings" for="align-left">Left</label>
+                                <input type="radio" id="align-center" name='text-align' value="center"
+                                onclick="onChangeAlign('center')" checked>
+                                <label class="editor-btn btn-line-settings" for="align-center">Center</label>
+                                <input type="radio" id="align-right" value="right" name='text-align'
+                                onclick="onChangeAlign('right')">
+                                <label  class="editor-btn btn-line-settings" for="align-right">Right</label>
+                            </form>
+                                <input list="font-list"/>
+                                <datalist id="font-list">
+                                    <option value="impact">
+                                    <option value="arial">
+                                    <option value="sans-serif">
+                                    <option value="serif">
+                                </datalist>
+                         
+                            <div>
+                                <label class="editor-btn btn-line-settings" for="fill-color">Color</label>
+                                <input type="color" id="fill-color" value="#ffffff" onchange="onChangeColor(this.value)"
+                                    hidden>
+                            </div>
+                        </div>
+                        <div class="edit-stroke-settings flex justify-center ">
+                            <label class="editor-btn btn-line-settings" for="toggle-stroke">Outline</label>
+                            <input type="checkbox" id="toggle-stroke" name="toggle-stroke" onclick="onToggleStroke()">
+                            <button class="editor-btn btn-line-settings" onclick="onChangeStrokeSize(1)">+</button>
+                            <button class="editor-btn btn-line-settings" onclick="onChangeStrokeSize(-1)">-</button>
+                        </div>
+                        <div class="edit-last-actions flex space-between">
+                            <button class="btn-last-actions btn-add" onclick="onSaveMeme()">Save</button>
+                            <a  class="btn-last-actions btn-download" href="#" download="myAmazingMeme.jpg" onclick="onDownloadImg(this)">Download</a>
+                            <form action="" method="POST" enctype="multipart/form-data"
+                                onsubmit="uploadImg(this, event)">
+                                <input name="img" id="imgData" type="hidden" />
+                                <button class="btn-last-actions btn-share">Share</button>
+                                <div class="share-container"></div>
+                            </form>
+                        </div>
+                        <div class="sticker-container  ">
+                            <img src="./img/s-1.gif" alt="" draggable="true">
+                            <img src="./img/s-2.gif" alt="" draggable="true">
+                            <img src="./img/s-4.gif" alt="" draggable="true">
+                        </div>
                     </div>
 
                 </div>
@@ -77,9 +106,7 @@
         </section>
         <section class="my-memes-page">
 
-            <h2>my memes</h2>
-
-            <div class="my-memes-container">
+            <div class="my-memes-container secondary-container flex">
 
                 <!-- <button onclick="onThumbnailImgClick()">Open</button>
                         <button>Download</button>
