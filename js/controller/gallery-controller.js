@@ -21,7 +21,7 @@ function renderKeywordBox(){
    let strHtml='';
    for(let kW in keywordsMap){
        let fontSize=(keywordsMap[kW]>8)? 40:keywordsMap[kW]*5;
-       strHtml+=`<span style="font-size:${fontSize}px" onclick=onKeywordsClick('${kW}')>${kW} </span>`
+       strHtml+=`<div style="font-size:${fontSize}px" onclick=onKeywordsClick('${kW}')>${kW} </div>`
    }
    document.querySelector('.keyword-box').innerHTML=strHtml
 }
@@ -30,4 +30,7 @@ function onKeywordsClick(kW){
     updateKeywordsMap(kW)
     document.querySelector('.search-container input').value=kW;
     onSearchGallery(kW)
+}
+function toggleMenu() {
+    document.body.classList.toggle('menu-open')
 }

@@ -133,11 +133,12 @@ function getMemeImgUrl() {
 function resizeCanvas(img) {
     let elContainer = document.querySelector('.main-meme-container');
     if (img) {
-        elContainer.style.width = `450px`;
-        elContainer.style.height = `${(img.height * 450) / img.width}px`
+        let viewWidth=(window.innerWidth>960)? 450:300;
+        elContainer.style.width = `${viewWidth}px`;
+        elContainer.style.height = `${(img.height * viewWidth) / img.width}px`
 
     }
-    console.log(elContainer.offsetWidth)
+    
     gEditCanvas.width = elContainer.offsetWidth
     gEditCanvas.height = elContainer.offsetHeight
     gMainCanvas.width = elContainer.offsetWidth

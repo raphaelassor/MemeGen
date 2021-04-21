@@ -2,10 +2,10 @@
 let gSearchBy;
 var gKeywordsMap = {'happy': 6,'angry': 1 , 'funny':1}
 var gImgs = [
-    { id: 1, url: './img/1.jpg', keywords: ['happy','angry'] },
-    { id: 2, url: './img/2.jpg', keywords: ['happy','nice'] },
-    { id: 3, url: './img/3.jpg', keywords: ['happy','funny'] },
-    { id: 4, url: './img/4.jpg', keywords: ['happy','political','nice'] },
+    { id: 1, url: './img/meme-imgs/1.jpg', keywords: ['happy','angry'] },
+    { id: 2, url: './img/meme-imgs/2.jpg', keywords: ['happy','nice'] },
+    { id: 3, url: './img/meme-imgs/3.jpg', keywords: ['happy','funny'] },
+    { id: 4, url: './img/meme-imgs/4.jpg', keywords: ['happy','political','nice'] },
     { id: 5, url: './img/5.jpg', keywords: ['happy'] },
     { id: 6, url: './img/6.jpg', keywords: ['happy'] },
     { id: 8, url: './img/8.jpg', keywords: ['happy'] },
@@ -24,8 +24,6 @@ function getImgs(){
 }
 function getImgURL(imgId) {
     const img = gImgs.find((img) =>{
-        console.log(img.id,'img.id')
-        console.log(imgId,'imgId')
         return img.id === imgId
 
     } )

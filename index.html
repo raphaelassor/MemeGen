@@ -10,19 +10,27 @@
 </head>
 
 <body onload="init()">
-    <header class="main-container">
+    
+    <div class="main-screen" onclick="toggleMenu()"></div>
+
+    <header>
         <div class="header-content secondary-container flex space-between">
             <div class="logo">Meme-Gen</div>
-            <nav class="nav-bar">
-                <a href="#" onclick="onMoveToGallery()">Gallery</a>
-                <a href="#">About</a>
-                <a href="#" onclick="onMoveToMemes()">Memes</a>
+            <nav class="nav-bar"> 
+                <ul class="main-nav flex align-center clean-list">
+                    <li><a href="#" onclick="onMoveToGallery()">Gallery</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#" onclick="onMoveToMemes()">Memes</a></li>
+                </ul>
+            </nav>
+            <!-- <button class="btn-menu" onclick="toggleMenu()" >=</button> -->
+            <img class="menu-icon"src="./img/menu-icon.png" width="38" height="38" onclick="toggleMenu()">
         </div>
         </div>
     </header>
     <main>
         <div class="gallery-page main-container flex-column">
-            <div class="search-container">
+            <div class="search-container flex-column">
                 <div class="search-input-container">
                     <input type="text" placeholder="search for memes" oninput="onSearchGallery(this.value)">
                     <img src="./img/search-bar.png" alt="">
@@ -46,32 +54,33 @@
                     <div class="editor-container flex-column">
                         <input type="text" placeholder="enter a line to the meme" oninput="onInputText(this.value)">
                         <div class="edit-action-buttons flex justify-center">
-                            <button class="editor-btn btn-add" onclick="onAddLine()">+</button>
+                            <button class="editor-btn btn-add" onclick="onAddLine()">
+                            <img src="./img/plus-icon.svg" width="30" height="30" style="color: white;" alt=""></button>
                             <button class="editor-btn btn-remove" onclick="onRemove()">delete</button>
-                            <button  class="editor-btn btn-switch"onclick="onSwitchLines()">->-</button>
+                            <button class="editor-btn btn-switch" onclick="onSwitchLines()">->-</button>
                         </div>
                         <div class="edit-line-settings">
                             <button class="editor-btn btn-line-settings" onclick="onChangeFontSize(1)">+</button>
                             <button class="editor-btn btn-line-settings" onclick="onChangeFontSize(-1)">-</button>
                             <form>
                                 <input type="radio" id="align-left" value="left" name='text-align'
-                                onclick="onChangeAlign('left')">
-                                <label  class="editor-btn btn-line-settings" for="align-left">Left</label>
+                                    onclick="onChangeAlign('left')">
+                                <label class="editor-btn btn-line-settings" for="align-left">Left</label>
                                 <input type="radio" id="align-center" name='text-align' value="center"
-                                onclick="onChangeAlign('center')" checked>
+                                    onclick="onChangeAlign('center')" checked>
                                 <label class="editor-btn btn-line-settings" for="align-center">Center</label>
                                 <input type="radio" id="align-right" value="right" name='text-align'
-                                onclick="onChangeAlign('right')">
-                                <label  class="editor-btn btn-line-settings" for="align-right">Right</label>
+                                    onclick="onChangeAlign('right')">
+                                <label class="editor-btn btn-line-settings" for="align-right">Right</label>
                             </form>
-                                <input list="font-list"/>
-                                <datalist id="font-list">
-                                    <option value="impact">
-                                    <option value="arial">
-                                    <option value="sans-serif">
-                                    <option value="serif">
-                                </datalist>
-                         
+                            <input list="font-list" />
+                            <datalist id="font-list">
+                                <option value="impact">
+                                <option value="arial">
+                                <option value="sans-serif">
+                                <option value="serif">
+                            </datalist>
+
                             <div>
                                 <label class="editor-btn btn-line-settings" for="fill-color">Color</label>
                                 <input type="color" id="fill-color" value="#ffffff" onchange="onChangeColor(this.value)"
@@ -86,7 +95,8 @@
                         </div>
                         <div class="edit-last-actions flex space-between">
                             <button class="btn-last-actions btn-add" onclick="onSaveMeme()">Save</button>
-                            <a  class="btn-last-actions btn-download" href="#" download="myAmazingMeme.jpg" onclick="onDownloadImg(this)">Download</a>
+                            <a class="btn-last-actions btn-download" href="#" download="myAmazingMeme.jpg"
+                                onclick="onDownloadImg(this)">Download</a>
                             <form action="" method="POST" enctype="multipart/form-data"
                                 onsubmit="uploadImg(this, event)">
                                 <input name="img" id="imgData" type="hidden" />

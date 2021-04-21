@@ -10,6 +10,8 @@ body {
 header {
     background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
     height: 4rem;
+    margin: 1rem;
+    border-radius: 2rem;
 }
 
 h1 {
@@ -51,6 +53,10 @@ main {
     display: flex;
 }
 
+.align-center {
+    align-items: center;
+}
+
 .flex-column {
     display: flex;
     flex-direction: column;
@@ -69,7 +75,25 @@ main {
     margin: 0px auto;
 }
 
+.clean-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 /* COMPONENTS */
+.main-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    cursor: pointer;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .8s;
+} 
 
 /* GALLERY */
 
@@ -86,9 +110,11 @@ main {
 
 .header-content a {
     margin-inline-end: 2.5rem;
-    padding: 0.6rem 1.5rem;
+    margin: 0.6rem 1.5rem;
+    padding: 0.5rem;
     color: white;
     font-size: 21px;
+    display: block
 }
 
 .header-content a:active {
@@ -103,23 +129,21 @@ main {
 
 .search-container {
     display: flex;
-    justify-content: space-between;
     margin: 1.5rem 1.5rem;
-    height: 3rem;
     max-width: 100%;
 }
 
 .search-input-container {
     display: flex;
-    height: 3rem;
     border-radius: 2rem;
     background-color: #22252c;
     margin-inline-end: 0.5rem;
+    margin-bottom: 1rem; 
 }
 
 .search-container input {
-    height: 3rem;
-    width: 26rem;
+    height: 4rem;
+    flex-grow:1;
     border-radius: 20px;
     background-color: transparent;
     margin-inline-start: 1rem;
@@ -135,18 +159,18 @@ main {
 }
 
 .keyword-box {
-    align-self: flex-end;
     box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
     border-radius: 25px;
     background-color: #a3a3a3;
     flex-grow: 1;
-    height: 3rem;
 }
 
-.keyword-box span {
+.keyword-box div {
     color: white;
     user-select: none;
     margin-inline-start: 0.5rem;
+    padding:0 0.3rem;
+    display: inline-block;
 }
 
 .keyword-box span:hover {
@@ -154,13 +178,16 @@ main {
 }
 
 .gallery-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0px 4rem;
+   
+    margin: 0px 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+    
+    gap:1rem;
+    justify-items: center;
 }
 
 .gallery-container img {
-    margin: 1rem;
     max-width: 200px;
     object-fit: contain;
     border-radius: 5%;
@@ -217,7 +244,9 @@ canvas {
 
 .btn-add {
     box-shadow: 1px 5px 0 #015d33, inset 0 5px 0 rgba(255, 255, 255, 0.58);
-    background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
+    object-position: center;
+    background-color: #ebeef3;
+background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
 }
 
 .btn-switch {
@@ -323,12 +352,15 @@ canvas {
 .my-memes-container {
     display: flex;
     flex-wrap: wrap;
-    margin: 0px 4rem;
+    justify-content: center;
+    margin: 0px 1rem;
 }
-.meme-card{
+
+.meme-card {
     display: flex;
     flex-direction: column;
 }
+
 .my-memes-container img {
     margin: 1rem;
     max-width: 200px;
@@ -346,7 +378,69 @@ canvas {
     font-size: 1rem;
     align-self: center;
 }
+@media screen and (max-width:768px){
 
+    body.menu-open .main-screen {
+        pointer-events: auto;
+        opacity: 1;
+    }
+    .main-nav {
+        flex-direction: column;
+        position: fixed;
+        right: 0;
+        top: 0;
+        background-color: #383b42;
+        height: 100vh;
+        border-left: 1px solid #606060;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, .16);
+        transform: translateX(100%);
+        transition: transform .6s;
+    }
+    
+    body.menu-open .main-nav {
+        transform: translateX(0);
+    }
+    
+  
+    .main-nav{
+        width: 70%;
+    }
+    .main-nav a {
+        display: block;
+        width:100%;
+        text-align: center;
+        padding: 3rem 0;
+        transition: background-color .3s;
+        font-size: 1.5rem;
+       
+    }
+    .menu-icon{
+        margin-inline-end: 2rem;
+    }
+    header{
+        border-radius: 0px;
+        margin: 0px 0px 1rem;
+    }
+    
+   
+}
+@media screen and (min-width:768px){
+    .menu-icon{
+        display: none;
+    }
+    .search-container{
+        flex-direction: row;
+    }
+    .search-input-container input{
+        flex-grow:1;
+        height:3rem;
+        
+    }
+    .search-input-container{
+        flex-grow: 1;
+        margin-bottom: 0px;
+    }
+}
 @media screen and (max-width: 500px) {
     .canvas-container {
         width: 80vw;
