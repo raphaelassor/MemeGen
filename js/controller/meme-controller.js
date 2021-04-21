@@ -196,7 +196,7 @@ function drawText(line, ctx = gEditCtx) {
 }
 
 function onCanvasClick(ev) {
-    console.log('touchDown')
+    
     const pos = getEvPos(ev)
     const meme = getMeme()
     let selectedIdx = meme.lines.findIndex(line => isLineClicked(pos, line))
@@ -207,7 +207,7 @@ function onCanvasClick(ev) {
     startDrag(pos)
 }
 function onFinishDrag(ev) {
-    console.log('on finish')
+   
     gIsDrag = false;
     document.body.style.cursor = 'auto'
     
@@ -264,7 +264,7 @@ function isLineClicked(pos, line) {
             return x < line.pos.x + 10
             && x > line.pos.x - textWidth - 10
         }
-        console.log(line.pos.x,line.pos.y,'center')
+      
         return x < line.pos.x + textWidth / 2 + 10
             && x > line.pos.x - textWidth / 2 - 10
     }
