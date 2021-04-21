@@ -19,9 +19,12 @@ function onSearchGallery(searchVal){
 function renderKeywordBox(){
    let keywordsMap= getKeywordsMap()
    let strHtml='';
+   let counter=0
    for(let kW in keywordsMap){
+       if(counter>8) break;
        let fontSize=(keywordsMap[kW]>8)? 40:keywordsMap[kW]*5;
        strHtml+=`<div style="font-size:${fontSize}px" onclick=onKeywordsClick('${kW}')>${kW} </div>`
+       counter++;
    }
    document.querySelector('.keyword-box').innerHTML=strHtml
 }

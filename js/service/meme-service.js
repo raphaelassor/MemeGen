@@ -122,6 +122,9 @@ function saveMeme(){
 function resetMeme(){
     gMeme=_createMeme();
 }
+function setFontFamily(family){
+    gMeme.lines[gMeme.selectedLineIdx].fontFamily=family
+}
 //------------------------------LOCAL FUNCTIONS---------------------//
 
 function _createMemes() {

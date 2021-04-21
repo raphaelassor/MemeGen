@@ -15,7 +15,9 @@
 
     <header>
         <div class="header-content secondary-container flex space-between">
-            <div class="logo">Meme-Gen</div>
+            <div class="logo">
+                <img src="./img/icons/logo.svg" alt="">
+            </div>
             <nav class="nav-bar"> 
                 <ul class="main-nav flex align-center clean-list">
                     <li><a href="#" onclick="onMoveToGallery()">Gallery</a></li>
@@ -54,26 +56,37 @@
                     <div class="editor-container flex-column">
                         <input type="text" placeholder="enter a line to the meme" oninput="onInputText(this.value)">
                         <div class="edit-action-buttons flex justify-center">
-                            <button class="editor-btn btn-add" onclick="onAddLine()">
-                            <img src="./img/plus-icon.svg" width="30" height="30" style="color: white;" alt=""></button>
-                            <button class="editor-btn btn-remove" onclick="onRemove()">delete</button>
-                            <button class="editor-btn btn-switch" onclick="onSwitchLines()">->-</button>
+                            <button class="btn-actions btn-add" onclick="onAddLine()">
+                                <svg aria-hidden="true" width="30" height="30" focusable="false" data-prefix="fas" data-icon="plus" class="svg-inline--fa fa-plus fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="white" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
+                            </button>
+                            <button class=" btn-actions btn-remove" onclick="onRemove()">
+                                <svg aria-hidden="true" width="30" height="30"focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="white" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
+                            </button>
+                            <button class="  btn-actions btn-switch" onclick="onSwitchLines()">->-</button>
                         </div>
                         <div class="edit-line-settings">
-                            <button class="editor-btn btn-line-settings" onclick="onChangeFontSize(1)">+</button>
-                            <button class="editor-btn btn-line-settings" onclick="onChangeFontSize(-1)">-</button>
+                            <button class="editor-btn btn-line-settings" onclick="onChangeFontSize(1)">
+                                A+
+                            </button>
+                            <button class="editor-btn btn-line-settings" onclick="onChangeFontSize(-1)">A-</button>
                             <form>
                                 <input type="radio" id="align-left" value="left" name='text-align'
-                                    onclick="onChangeAlign('left')">
-                                <label class="editor-btn btn-line-settings" for="align-left">Left</label>
+                                onchange="onChangeAlign('left')" hidden>
+                                <label  for="align-left">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="align-left" width="30" height="30" class="svg-inline--fa fa-align-left fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M12.83 352h262.34A12.82 12.82 0 0 0 288 339.17v-38.34A12.82 12.82 0 0 0 275.17 288H12.83A12.82 12.82 0 0 0 0 300.83v38.34A12.82 12.82 0 0 0 12.83 352zm0-256h262.34A12.82 12.82 0 0 0 288 83.17V44.83A12.82 12.82 0 0 0 275.17 32H12.83A12.82 12.82 0 0 0 0 44.83v38.34A12.82 12.82 0 0 0 12.83 96zM432 160H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 256H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16z"></path></svg>
+                                </label>
                                 <input type="radio" id="align-center" name='text-align' value="center"
-                                    onclick="onChangeAlign('center')" checked>
-                                <label class="editor-btn btn-line-settings" for="align-center">Center</label>
+                                onchange="onChangeAlign('center')" hidden checked>
+                                <label  for="align-center">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="align-center" width="30" height="30" class="svg-inline--fa fa-align-center fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M432 160H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 256H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM108.1 96h231.81A12.09 12.09 0 0 0 352 83.9V44.09A12.09 12.09 0 0 0 339.91 32H108.1A12.09 12.09 0 0 0 96 44.09V83.9A12.1 12.1 0 0 0 108.1 96zm231.81 256A12.09 12.09 0 0 0 352 339.9v-39.81A12.09 12.09 0 0 0 339.91 288H108.1A12.09 12.09 0 0 0 96 300.09v39.81a12.1 12.1 0 0 0 12.1 12.1z"></path></svg>
+                                </label>
                                 <input type="radio" id="align-right" value="right" name='text-align'
-                                    onclick="onChangeAlign('right')">
-                                <label class="editor-btn btn-line-settings" for="align-right">Right</label>
+                                    onchange="onChangeAlign('right')" hidden>
+                                <label  for="align-right">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="align-right" width="30" height="30" class="svg-inline--fa fa-align-right fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M16 224h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm416 192H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm3.17-384H172.83A12.82 12.82 0 0 0 160 44.83v38.34A12.82 12.82 0 0 0 172.83 96h262.34A12.82 12.82 0 0 0 448 83.17V44.83A12.82 12.82 0 0 0 435.17 32zm0 256H172.83A12.82 12.82 0 0 0 160 300.83v38.34A12.82 12.82 0 0 0 172.83 352h262.34A12.82 12.82 0 0 0 448 339.17v-38.34A12.82 12.82 0 0 0 435.17 288z"></path></svg>
+                                </label>
                             </form>
-                            <input list="font-list" />
+                            <input list="font-list" oninput="onChangeFontFamily(this.value)" />
                             <datalist id="font-list">
                                 <option value="impact">
                                 <option value="arial">
@@ -81,15 +94,18 @@
                                 <option value="serif">
                             </datalist>
 
-                            <div>
-                                <label class="editor-btn btn-line-settings" for="fill-color">Color</label>
-                                <input type="color" id="fill-color" value="#ffffff" onchange="onChangeColor(this.value)"
-                                    hidden>
-                            </div>
+                            
+                                <label  for="fill-color">
+                                    <img src="./img/icons/fill-color.png" alt="">
+                                </label>
+                                <input type="color" id="fill-color" value="#ffffff" onchange="onChangeColor(this.value)">
+            
                         </div>
                         <div class="edit-stroke-settings flex justify-center ">
-                            <label class="editor-btn btn-line-settings" for="toggle-stroke">Outline</label>
-                            <input type="checkbox" id="toggle-stroke" name="toggle-stroke" onclick="onToggleStroke()">
+                            <label  for="toggle-stroke">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="border-style" width="30" height="30" class="svg-inline--fa fa-border-style fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M240 416h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-96 0h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm192 0h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm96-192h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 96h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 96h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-288h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-96H32A32 32 0 0 0 0 64v400a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16V96h368a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
+                            </label>
+                            <input type="checkbox" id="toggle-stroke" name="toggle-stroke" onclick="onToggleStroke()" hidden>
                             <button class="editor-btn btn-line-settings" onclick="onChangeStrokeSize(1)">+</button>
                             <button class="editor-btn btn-line-settings" onclick="onChangeStrokeSize(-1)">-</button>
                         </div>

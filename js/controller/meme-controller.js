@@ -26,6 +26,7 @@ function addListeners() {
         resizeCanvas()
         renderCanvas(gEditCanvas, gEditCtx, ev)
     })
+    document.querySelector('.main-nav').addEventListener('click',()=>document.body.classList.remove('menu-open'))
     // document.querySelectorAll('.sticker-container img').forEach(img=>{
     //     img.addEventListener('dragstart', )
     //     img.addEventListener('dragend', )
@@ -49,7 +50,8 @@ function renderLineSettings() {
             txt: '',
             fillColor: '#ffffff',
             isStroke: false,
-            align: 'center'
+            align: 'center',
+            fontFamily:''
         }
     }
     else line = meme.lines[meme.selectedLineIdx]
@@ -57,6 +59,7 @@ function renderLineSettings() {
     document.querySelector('.editor-container input[type="color"]').value = line.fillColor
     document.querySelector('.editor-container input[name="toggle-stroke"]').checked = line.isStroke
     document.querySelector(`.editor-container form input[value="${line.align}"]`).checked = true;
+    document.querySelector('.editor-container input[list="font-list"]').value = line.fontFamily
 
 
 }
@@ -124,6 +127,10 @@ function onDownloadImg(elLink) {
     drawImg(getMeme().selectedImgId)
     renderCanvas()
 }
+function onChangeFontFamily(family){
+    setFontFamily(family);
+    renderCanvas()
+}
 
 function getMemeImgUrl() {
     var imgContent = gMainCanvas.toDataURL('image/jpeg')
@@ -133,18 +140,16 @@ function getMemeImgUrl() {
 function resizeCanvas(img) {
     let elContainer = document.querySelector('.main-meme-container');
     if (img) {
-        let viewWidth=(window.innerWidth>960)? 450:300;
+        let viewWidth=(window.innerWidth>960)? 500:350;
         elContainer.style.width = `${viewWidth}px`;
         elContainer.style.height = `${(img.height * viewWidth) / img.width}px`
 
     }
-    
     gEditCanvas.width = elContainer.offsetWidth
     gEditCanvas.height = elContainer.offsetHeight
     gMainCanvas.width = elContainer.offsetWidth
     gMainCanvas.height = elContainer.offsetHeight
-
-
+    renderCanvas()
 }
 function drawImg(imgId) {
     gMainCtx.clearRect(0, 0, gMainCanvas.width, gMainCanvas.height)
@@ -163,7 +168,7 @@ function renderCanvas(canvas = gEditCanvas, ctx = gEditCtx, ev) {
         drawText(line, ctx)
     });
 
-    // if (meme.selectedLineIdx !== -1) drawSelect(meme.lines[meme.selectedLineIdx])
+    
     if (!ev) return
     if (ev.type === 'resize') drawImg(meme.selectedImgId);
 }
@@ -174,6 +179,7 @@ function drawText(line, ctx = gEditCtx) {
     ctx.textAlign = line.align
     if (line.isStroke) {
         ctx.lineWidth = line.strokeWidth
+        ctx.strokeStyle='black'
         ctx.strokeText(line.txt, x, y)
     }
     if (line.isSelected && line.txt) {
@@ -182,6 +188,7 @@ function drawText(line, ctx = gEditCtx) {
         if (line.align === 'center') ctx.rect(x - textWidth / 2 - 5, y + 5, textWidth + 10, -line.fontSize - 10)
         else if (line.align === 'left') ctx.rect(x - 5, y + 5, textWidth + 10, -line.fontSize - 10)
         else if (line.align === 'right') ctx.rect(x + 5, y + 5, -textWidth - 10, -line.fontSize - 10)
+        ctx.lineWidth = "2"
         ctx.strokeStyle = 'white'
         ctx.stroke()
     }
@@ -201,19 +208,9 @@ function onCanvasClick(ev) {
 }
 function onFinishDrag(ev) {
     console.log('on finish')
-    // if(ev.type==='touchend') ev.preventDefault();
     gIsDrag = false;
     document.body.style.cursor = 'auto'
-    // if (gIsStickerDrag) {
-    //     const{x,y}=getEvPos(ev)
-    //     img = new Image()
-    //     img.src = gStickerSrc;
-    //     img.onload = () => {
-    //         gEditCtx.drawImage(img, x, y, gEditCanvas.width, gEditCanvas.height)
-    //     }
-    //     gIsStickerDrag=false;
-    //     gStickerSrc='';
-    // }
+    
 }
 function startDrag(pos) {
     gIsDrag = true;
@@ -257,14 +254,17 @@ function isLineClicked(pos, line) {
     if (!(y > line.pos.y - line.fontSize
         && y < line.pos.y + line.fontSize)) return false;
     else {
-        if (line.textAlign === 'left') {
+        if (line.align === 'left') {
+            console.log(line.pos.x,line.pos.y,'left')
             return x > line.pos.x - 10
-                && x < line.pos.x + textWidth + 10
+            && x < line.pos.x + textWidth + 10
         }
-        if (line.textAlign === 'right') {
+        if (line.align === 'right') {
+            console.log(line.pos.x,line.pos.y,'right')
             return x < line.pos.x + 10
-                && x > line.pos.x - textWidth - 10
+            && x > line.pos.x - textWidth - 10
         }
+        console.log(line.pos.x,line.pos.y,'center')
         return x < line.pos.x + textWidth / 2 + 10
             && x > line.pos.x - textWidth / 2 - 10
     }
@@ -272,7 +272,7 @@ function isLineClicked(pos, line) {
 
 
 
-////--------------SHARE SHIT ------------------------//
+////--------------SHARE ------------------------//
 function uploadImg(elForm, ev) {
     ev.preventDefault();
     captureImgCanvas()
