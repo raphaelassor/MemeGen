@@ -1,8 +1,8 @@
 'use strict'
 let gSearchBy;
 var gImgs = [
-    { id: 1, url: './img/meme-imgs/1.jpg', keywords: ['happy', 'nature', 'princess'] },
-    { id: 2, url: './img/meme-imgs/2.jpg', keywords: ['trump', 'old man', 'mad'] },
+    { id: 1, url: './img/meme-imgs/1.jpg', keywords: ['funny', 'princess'] },
+    { id: 2, url: './img/meme-imgs/2.jpg', keywords: ['trump','mad'] },
     { id: 3, url: './img/meme-imgs/3.jpg', keywords: ['happy', 'funny', 'dogs', 'cute'] },
     { id: 4, url: './img/meme-imgs/4.jpg', keywords: ['angry', 'funny', 'cute'] },
     { id: 5, url: './img/meme-imgs/5.jpg', keywords: ['angry', 'funny', 'cute'] },

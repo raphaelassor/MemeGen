@@ -21,7 +21,7 @@ function renderKeywordBox(){
    let strHtml='';
    let counter=0
    for(let kW in keywordsMap){
-       if(counter>8) break;
+       if(counter>5) break;
        let fontSize=(keywordsMap[kW]>8)? 40:keywordsMap[kW]*5;
        strHtml+=`<div style="font-size:${fontSize}px" onclick=onKeywordsClick('${kW}')>${kW} </div>`
        counter++;

@@ -9,7 +9,7 @@ body {
     margin: 0px;
     width: 100vw;
     background-color: #22252c;
-    font-family: 'Poppins',sans-serif;
+  
 }
 
 header {
@@ -40,6 +40,7 @@ label:hover {
 a {
     text-decoration: none;
     font-weight: 500;
+    font-family: 'Poppins',sans-serif;
 }
 
 main {
@@ -112,6 +113,9 @@ main {
     align-items: center;
     height: 100%;
 }
+.logo img:hover{
+    cursor: pointer;
+}
 
 .header-content a {
     margin-inline-end: 2.5rem;
@@ -148,11 +152,11 @@ main {
 
 .search-container input {
     height: 4rem;
-    min-width: 320px;
+    min-width: 120px;
+    margin-inline-start: 1rem;
     flex-grow:1;
     border-radius: 20px;
     background-color: transparent;
-    margin-inline-start: 1rem;
     background-color: #22252c;
     color: #fefefe;
     font-size: 22px;
@@ -189,14 +193,13 @@ main {
    
     margin: 0px 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
-    
+    grid-template-columns: repeat(auto-fill,minmax(140px,1fr));
     gap:1rem;
     justify-items: center;
 }
 
 .gallery-container img {
-    max-width: 200px;
+    max-width:100%;
     object-fit: contain;
     border-radius: 5%;
     box-shadow: -2px 8px 9px -5px #000000;
@@ -454,8 +457,8 @@ form input[type="color"]{
 @media screen and (min-width:640px){
     .meme-grid{
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-
     }
+   
 }
 @media screen and (min-width:768px){
     .menu-icon{
@@ -467,11 +470,16 @@ form input[type="color"]{
     .search-input-container input{
         flex-grow:1;
         height:3rem;
+        min-width: 250px;
+        margin-inline-end: 1rem;
     }
    
     .search-input-container{
         flex-grow: 1;
         margin-bottom: 0px;
+    }
+    .gallery-container{
+        grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
     }
 }
 @media screen and (min-width:980px){
