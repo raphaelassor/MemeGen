@@ -360,7 +360,7 @@ function allowDrop(ev){
 
 
 ////--------------SHARE ------------------------//
-function uploadImg(elForm, ev) {
+function onShareImg(elForm, ev) {
     ev.preventDefault();
     captureImgCanvas()
     let imgUrl = getMemeImgUrl()
@@ -368,9 +368,10 @@ function uploadImg(elForm, ev) {
     document.getElementById('imgData').value = imgUrl;
     // A function to be called if request succeeds
     function onSuccess(imgUrl) {
+        toggleModal()
         uploadedImgUrl = encodeURIComponent(imgUrl)
-        document.querySelector('.share-container').innerHTML = `
-        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${imgUrl}&t=${imgUrl}" title="Share on Facebook" target="_blank onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${imgUrl}&t=${imgUrl}'); return false;">">
+        document.querySelector('.share-modal .btn-share').innerHTML = `
+        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${imgUrl}&t=${imgUrl}" title="Share on Facebook" target="_blank onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${imgUrl}&t=${imgUrl}'); return false;">
            Share   
         </a>`
     }
@@ -392,6 +393,9 @@ function doUploadImg(elForm, onSuccess) {
         .catch(function (err) {
             console.error(err)
         })
+}
+function toggleModal(){
+    document.querySelector('.share-modal').classList.toggle('show')
 }
 //---------------------Input Image------------------------//
 function onImgInput(ev) {

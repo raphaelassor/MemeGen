@@ -14,11 +14,10 @@
 
     <div class="main-screen" onclick="toggleMenu()"></div>
 
-    <header>
-        <div class="header-content secondary-container flex space-between">
-            <div class="logo">
-                <img onclick="onMoveToGallery()" src="./img/icons/logo.svg" alt="">
-            </div>
+    <header >
+        <div class="header-content container flex space-between">
+            <img class="logo" onclick="onMoveToGallery()" src="./img/icons/Memey-logo-3.svg" alt="">
+
             <nav class="nav-bar">
                 <ul class="main-nav flex align-center clean-list ">
                     <li><a href="#" onclick="onMoveToGallery()">Gallery</a></li>
@@ -29,10 +28,10 @@
             <!-- <button class="btn-menu" onclick="toggleMenu()" >=</button> -->
             <img class="menu-icon" src="./img/menu-icon.png" width="38" height="38" onclick="toggleMenu()">
         </div>
-        </div>
+       
     </header>
     <main>
-        <div class="gallery-page main-container flex-column">
+        <div class="gallery-page main-container flex-column container">
             <div class="search-container flex-column">
                 <div class="search-input-container">
                     <input type="text" placeholder="search for memes" oninput="onSearchGallery(this.value)">
@@ -186,15 +185,24 @@
                             <a class="btn-actions" href="#" download="myAmazingMeme.jpg"
                                 onclick="onDownloadImg(this)">Download</a>
                             <form action="" method="POST" enctype="multipart/form-data"
-                                onsubmit="uploadImg(this, event)">
+                                onsubmit="onShareImg(this, event)">
                                 <input name="img" id="imgData" type="hidden" />
                                 <button class="btn-actions">Share</button>
-                                <div class="share-container"></div>
                             </form>
+                            <!-- MODAL -->
+                            <div class="share-modal flex-column">
+                                <h3>Share to Facebook?</h3>
+                                <div class="flex space-between">
+                                    <button name="cancel" onclick="toggleModal()">Cancel</button>
+                                    <button onclick="toggleModal()" class="btn-share">Share</button>
+                                </div>
+                            </div>
+                            <!-- END MODAL -->
                         </div>
                     </div>
                 </div>
             </div>
+
         </section>
         <section class="my-memes-page">
 

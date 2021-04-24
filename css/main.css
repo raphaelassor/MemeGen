@@ -11,8 +11,7 @@ body {
 
 header {
     height: 4rem;
-    margin: 0 1rem 0;
-    border-radius: 2rem;
+    margin-bottom:  1rem ;
 }
 
 input {
@@ -40,6 +39,7 @@ a {
     text-decoration: none;
     font-weight: 300;
     font-family: 'Poppins', sans-serif;
+    color: #f2f2f2;
 }
 
 main {
@@ -52,6 +52,9 @@ main {
 .main-container {
     margin: 1rem;
     border-radius: 2rem;
+}
+.container{
+    margin:0 auto;
 }
 
 .flex {
@@ -75,10 +78,7 @@ main {
     justify-content: center;
 }
 
-.secondary-container {
-    max-width: 1040px;
-    margin: 0px auto;
-}
+
 
 .clean-list {
     list-style-type: none;
@@ -111,32 +111,40 @@ main {
 .header-content {
     align-items: flex-end;
     height: 100%;
+    margin-bottom: 1rem;
 }
 
-.logo img:hover {
+.logo {
     cursor: pointer;
-}
-
-.main-nav {
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }
 
 .header-content a {
-    margin-inline-end: 2.5rem;
+    margin-inline-end: 0px;
     margin: 0.6rem 1.5rem;
     padding: 0 0.5rem;
     color: #f5f5f7;
     font-size: 1.25rem;
 }
-
+.header-content a:last-of-type{
+    margin-inline-end: 0px;
+}
 .header-content a:active {
     background-color: #fefefe;
     color: #21ac91;
-    border-radius: 1.5rem;
+    border-radius: 4px;
 }
 
-.logo {
-    margin-inline-start: 3rem;
+.header-content a {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-content a::after {
+    content: '';
+    background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+    width: 100%;
+    height: 2px;
 }
 
 .search-container {
@@ -147,7 +155,6 @@ main {
 .search-input-container {
     display: flex;
     background-color: #f5f5f7;
-    margin-inline-end: 0.5rem;
     margin-bottom: 1rem;
 }
 
@@ -235,7 +242,7 @@ canvas {
     border-radius: 3px;
     background-color: transparent;
     border: 2px solid white;
-    color:white;
+    color: white;
     font-size: 1.15rem;
     font-family: 'poppins';
 }
@@ -249,11 +256,12 @@ canvas {
     color: white;
 }
 
-.edit-action-buttons button:first-child{
+.edit-action-buttons button:first-child {
     background-color: #f5f5f7;
     color: black;
-} 
-.edit-action-buttons button:last-child{
+}
+
+.edit-action-buttons button:last-child {
     background-color: #121212;
     color: white;
 }
@@ -269,8 +277,8 @@ canvas {
 
 .edit-line-settings {
     display: grid;
-   grid-template-columns: repeat(6,2.5rem);
-   gap: 5px;
+    grid-template-columns: repeat(6, 2.5rem);
+    gap: 5px;
     max-width: 320px;
     margin-bottom: 1rem;
 }
@@ -289,7 +297,6 @@ canvas {
     width: 2.5rem;
     height: 2.5rem;
     font-size: 1.25rem;
-    
 }
 
 .edit-line-settings svg path {
@@ -300,17 +307,17 @@ canvas {
     background-color: #f5f5f7;
 }
 
-.edit-line-settings  input[name="text-align"]:checked+svg path {
+.edit-line-settings input[name="text-align"]:checked+svg path {
     fill: #121212;
 }
-input[type="color"]{
+
+input[type="color"] {
     position: absolute;
     opacity: 0.01;
 }
 
 .edit-line-settings input[list="font-list"] {
     grid-column: span 3;
-   
     text-align: center;
     background: transparent;
     border: 2px solid white;
@@ -344,6 +351,23 @@ form input[type="color"] {
     object-fit: contain;
 }
 
+.share-modal {
+    background-color: #f2f2f2;
+    display: none;
+    position: absolute;
+}
+
+.share-modal.show {
+    display: block;
+}
+
+.share-modal button[name="cancel"] {
+    background-color: rgb(0, 0, 0);
+}
+
+.btn-share {
+    background-color: rgb(70, 70, 250);
+}
 
 /* My Memes */
 
@@ -372,11 +396,11 @@ form input[type="color"] {
 }
 
 .btn-open {
-    box-shadow: 0px 2px 0 #015d33, inset -1px -2px 9px 0px rgb(255 255 255 / 58%);
-    background-image: linear-gradient( -38deg, #42eb5c 0%, #37b34a 100%);
+    /* border-image: linear-gradient( -38deg, #42eb5c 0%, #37b34a 100%);; */
+    /* background-image: linear-gradient( -38deg, #42eb5c 0%, #37b34a 100%); */
     color: white;
     padding: 0.1rem 0.75rem;
-    border-radius: 15px;
+    border-radius: 4px;
     font-size: 1rem;
     align-self: center;
 }
@@ -413,6 +437,7 @@ form input[type="color"] {
         transition: background-color .3s;
         font-size: 1.5rem;
     }
+   
     .menu-icon {
         margin-inline-end: 2rem;
     }
@@ -428,21 +453,24 @@ form input[type="color"] {
     }
 }
 
-@media screen and (min-width:768px) {
+@media screen and (min-width:740px) {
     .menu-icon {
         display: none;
     }
     .search-input-container input {
         flex-grow: 1;
         height: 3rem;
-        min-width: 250px;
-        margin-inline-end: 1rem;
+        
+       
     }
     .search-input-container {
         flex-grow: 1;
     }
     .gallery-container {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    .container{
+        max-width:740px ;
     }
 }
 
@@ -451,7 +479,9 @@ form input[type="color"] {
         grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
         max-width: 980px;
     }
-
+    .container {
+        max-width: 1040px;
+    }
 }
 
 @media screen and (max-width: 500px) {
