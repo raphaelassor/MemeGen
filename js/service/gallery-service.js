@@ -63,3 +63,12 @@ function _createKwMap() {
     console.log(keywordsMap)
 return keywordsMap;
 }
+function addImg(img){
+    const newImg={
+        id:gImgs.length+1,
+        url:img.src,
+        keywords:[]
+    }
+    gImgs.push(newImg)
+    console.log(newImg.url)
+}

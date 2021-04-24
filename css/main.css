@@ -1,23 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
-
 * {
     box-sizing: border-box;
 }
 
-
 body {
     margin: 0px;
     width: 100vw;
-    background-color: #22252c;
-  
+    background-color: #121212;
 }
 
 header {
-    background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
     height: 4rem;
-    margin: 1rem;
+    margin: 0 1rem 0;
     border-radius: 2rem;
- 
 }
 
 input {
@@ -29,8 +24,12 @@ button {
     border: none;
     outline: none;
     cursor: pointer;
-    font-family:'Poppins',sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 300;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 3px;
+    color: #f5f5f7;
 }
 
 label:hover {
@@ -39,8 +38,8 @@ label:hover {
 
 a {
     text-decoration: none;
-    font-weight: 500;
-    font-family: 'Poppins',sans-serif;
+    font-weight: 300;
+    font-family: 'Poppins', sans-serif;
 }
 
 main {
@@ -88,6 +87,7 @@ main {
 }
 
 /* COMPONENTS */
+
 .main-screen {
     position: fixed;
     top: 0;
@@ -99,31 +99,34 @@ main {
     pointer-events: none;
     opacity: 0;
     transition: opacity .8s;
-} 
+}
 
 /* GALLERY */
 
 .gallery-page {
     border-radius: 10px;
-    background-color: #383b42;
     height: 100%;
 }
 
 .header-content {
-    align-items: center;
+    align-items: flex-end;
     height: 100%;
 }
-.logo img:hover{
+
+.logo img:hover {
     cursor: pointer;
+}
+
+.main-nav {
+    padding-bottom: 10px;
 }
 
 .header-content a {
     margin-inline-end: 2.5rem;
     margin: 0.6rem 1.5rem;
-    padding: 0.5rem;
-    color: white;
-    font-size: 21px;
-    display: block
+    padding: 0 0.5rem;
+    color: #f5f5f7;
+    font-size: 1.25rem;
 }
 
 .header-content a:active {
@@ -138,51 +141,47 @@ main {
 
 .search-container {
     display: flex;
-    margin: 1.5rem 1.5rem;
     max-width: 100%;
 }
 
 .search-input-container {
     display: flex;
-    border-radius: 2rem;
-    background-color: #22252c;
+    background-color: #f5f5f7;
     margin-inline-end: 0.5rem;
-    margin-bottom: 1rem; 
+    margin-bottom: 1rem;
 }
 
 .search-container input {
     height: 4rem;
     min-width: 120px;
     margin-inline-start: 1rem;
-    flex-grow:1;
-    border-radius: 20px;
-    background-color: transparent;
-    background-color: #22252c;
-    color: #fefefe;
-    font-size: 22px;
+    flex-grow: 1;
+    background-color: #f5f5f7;
+    color: #121212;
+    font-size: 18px;
 }
 
 .search-input-container img {
     height: 50%;
     object-fit: contain;
-    margin-inline-end: 30px;
+    margin-inline-end: 10px;
     align-self: center
 }
 
 .keyword-box {
     box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
-    border-radius: 25px;
-    background-color: #a3a3a3;
     flex-grow: 1;
+    margin-bottom: 1rem;
 }
 
 .keyword-box div {
-    color: white;
+    color: #f5f5f7;
     user-select: none;
     margin-inline-start: 0.5rem;
-    padding:0 0.3rem;
+    padding: 0 0.3rem;
     display: inline-block;
     font-weight: 300;
+    font-family: 'Poppins', sans-serif;
 }
 
 .keyword-box span:hover {
@@ -190,19 +189,17 @@ main {
 }
 
 .gallery-container {
-   
     margin: 0px 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(140px,1fr));
-    gap:1rem;
-    justify-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.5rem;
+    justify-items: baseline
 }
 
 .gallery-container img {
-    max-width:100%;
+    max-width: 100%;
     object-fit: contain;
-    border-radius: 5%;
-    box-shadow: -2px 8px 9px -5px #000000;
+    border-radius: 5px
 }
 
 /* MEME */
@@ -229,140 +226,111 @@ main {
 
 canvas {
     position: absolute;
-    border-radius: 30px;
+    border-radius: 5px;
 }
 
-.editor-background {
-    background-color: #ebeef329;
-    border-radius: 30px;
+.btn-actions {
+    margin-bottom: 1.5rem;
+    padding: 0px 0.5em;
+    border-radius: 3px;
+    background-color: transparent;
+    border: 2px solid white;
+    color:white;
+    font-size: 1.15rem;
+    font-family: 'poppins';
 }
-.btn-actions{
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 10px;
-}
-.editor-btn {
-    box-shadow: 1px 5px 0 rgb(92 92 92 / 55%), inset 0 5px 0 rgb(255 255 255 / 58%);
-    background-color: #ffffff;
+
+.btn-editor {
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 10px;
     padding: 0.5rem;
-}
-
-
-.btn-line-settings {
-    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
-    background-color: #ffffff;
-}
-
-.btn-remove {
-    box-shadow: 1px 5px 0 #8c0606, inset 0 5px 0 rgba(255, 255, 255, 0.58);
-    background-image: linear-gradient(-38deg, #cf1d37 0%, #cf1d37 1%, #f05036 100%);
-}
-
-.btn-add {
-    box-shadow: 1px 5px 0 #015d33, inset 0 5px 0 rgba(255, 255, 255, 0.58);
-    object-position: center;
-    background-color: #ebeef3;
-background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
-}
-
-
-
-
-
-.btn-last-actions {
-    padding: 1rem 1.5rem;
-    border-radius: 15px;
+    border-radius: 3px;
+    border: 2px solid white;
     color: white;
-    font-size: 1.25rem;
 }
 
-.btn-download {
-    box-shadow: 1px 6px 0 #632687, inset 0 5px 0 #ffffff94;
-    background-color: #8f44bb;
-    display: flex;
-    align-self: center;
-    text-align: center;
+.edit-action-buttons button:first-child{
+    background-color: #f5f5f7;
+    color: black;
+} 
+.edit-action-buttons button:last-child{
+    background-color: #121212;
+    color: white;
 }
-
-.btn-share {
-    box-shadow: 1px 6px 0 #165c9c, inset 0 5px 0#ffffff94;
-    background-color: #1e7cd3;
-}
-
 
 .editor-container input[type="text"] {
     width: 100%;
-    height: 3.5rem;
-    box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 #ffffff;
-    border-radius: 28px;
-    background-color: #ebeef3;
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     padding-inline-start: 1rem;
     text-align: center;
-}
-
-.edit-action-buttons button {
-    margin-bottom: 1.5rem;
-    margin-inline-end: 0.75rem;
+    height: 2.5rem;
 }
 
 .edit-line-settings {
     display: grid;
-    border-radius: 15px;
-    grid-template: 3.5rem 3.5rem/repeat(5, 3rem);
-    background-color: #19a59f;
-    gap: 1rem;
-    padding: 1rem 0px;
-    margin: 0 1rem 1rem;
+   grid-template-columns: repeat(6,2.5rem);
+   gap: 5px;
+    max-width: 320px;
+    margin-bottom: 1rem;
 }
 
 .edit-line-settings form {
     grid-column: span 3;
     display: flex;
     justify-content: space-between;
-    
 }
 
 .edit-line-settings form input {
     visibility: hidden;
 }
 
-.edit-line-settings form svg,.edit-line-settings img,.edit-stroke-settings svg{
-    box-shadow: 1px 5px 0 rgb(92 92 92 / 55%), inset 0 5px 0 rgb(255 255 255 / 58%);
-    background-color: #ffffff;
+.edit-line-settings button {
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 10px;
-    padding: 0.5rem;
+    font-size: 1.25rem;
+    
 }
-.edit-line-settings form input:checked+label svg {
-    background-color: #c2c2c2;
+
+.edit-line-settings svg path {
+    fill: white;
+}
+
+.edit-line-settings input[name="text-align"]:checked+svg {
+    background-color: #f5f5f7;
+}
+
+.edit-line-settings  input[name="text-align"]:checked+svg path {
+    fill: #121212;
+}
+input[type="color"]{
+    position: absolute;
+    opacity: 0.01;
 }
 
 .edit-line-settings input[list="font-list"] {
     grid-column: span 3;
-    height: 50px;
-    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
-    border-radius: 10px;
-    font-size: 25px;
-    padding-inline-start: 0.5rem;
-    display: block;
+   
+    text-align: center;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 3px;
+    color: white;
+    font-size: 1.15rem;
+    height: 2.5rem;
 }
 
-form input[type="color"]{
-   display: none;
+form input[type="color"] {
+    display: none;
 }
 
-.edit-stroke-settings button, .edit-stroke-settings label  {
+.edit-stroke-settings button, .edit-stroke-settings label {
     margin-bottom: 1.5rem;
     margin-inline-end: 0.75rem;
 }
-.edit-line-settings button{
-    font-size:25px;
+
+.edit-line-settings button {
+    font-size: 25px;
 }
 
 .sticker-container {
@@ -375,6 +343,7 @@ form input[type="color"]{
     max-width: 75px;
     object-fit: contain;
 }
+
 
 /* My Memes */
 
@@ -411,8 +380,8 @@ form input[type="color"]{
     font-size: 1rem;
     align-self: center;
 }
-@media screen and (max-width:768px){
-    
+
+@media screen and (max-width:768px) {
     body.menu-open .main-screen {
         pointer-events: auto;
         opacity: 1;
@@ -429,64 +398,62 @@ form input[type="color"]{
         transform: translateX(100%);
         transition: transform .6s;
     }
-    
     body.menu-open .main-nav {
         transform: translateX(0);
     }
-    .main-nav{
+    .main-nav {
         width: 70%;
         z-index: 10;
     }
     .main-nav a {
         display: block;
-        width:100%;
+        width: 100%;
         text-align: center;
         padding: 3rem 0;
         transition: background-color .3s;
         font-size: 1.5rem;
-        
     }
-    .menu-icon{
+    .menu-icon {
         margin-inline-end: 2rem;
     }
-    header{
+    header {
         border-radius: 0px;
         margin: 0px 0px 1rem;
     }
 }
-@media screen and (min-width:640px){
-    .meme-grid{
+
+@media screen and (min-width:640px) {
+    .meme-grid {
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     }
-   
 }
-@media screen and (min-width:768px){
-    .menu-icon{
+
+@media screen and (min-width:768px) {
+    .menu-icon {
         display: none;
     }
-    .search-container{
-        flex-direction: row;
-    }
-    .search-input-container input{
-        flex-grow:1;
-        height:3rem;
+    .search-input-container input {
+        flex-grow: 1;
+        height: 3rem;
         min-width: 250px;
         margin-inline-end: 1rem;
     }
-   
-    .search-input-container{
+    .search-input-container {
         flex-grow: 1;
-        margin-bottom: 0px;
     }
-    .gallery-container{
-        grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+    .gallery-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 }
-@media screen and (min-width:980px){
+
+@media screen and (min-width:980px) {
     .meme-grid {
-         grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+        max-width: 980px;
     }
+
 }
+
 @media screen and (max-width: 500px) {
     .canvas-container {
         width: 80vw;

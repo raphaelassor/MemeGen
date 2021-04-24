@@ -4,7 +4,7 @@ var gEditCanvas;
 var gEditCtx;
 var gStartPos;
 var gIsDrag;
-// var gStickerSrc;
+var gIsResize;
 // var gIsStickerDrag;
 let gTouchEvs = ['touchstart', 'touchend', 'touchmove']
 
@@ -58,7 +58,7 @@ function renderLineSettings() {
     document.querySelector('.editor-container input[type="text"]').value = line.txt
     document.querySelector('.editor-container input[type="color"]').value = line.fillColor
     document.querySelector('.editor-container input[name="toggle-stroke"]').checked = line.isStroke
-    document.querySelector(`.editor-container form input[value="${line.align}"]`).checked = true;
+    document.querySelector(`.editor-container input[value="${line.align}"]`).checked = true;
     document.querySelector('.editor-container input[list="font-list"]').value = line.fontFamily
 
 
@@ -73,7 +73,8 @@ function onInputText(textInput) {
 }
 function onAddLine() {
     doAddLine(gEditCanvas)
-    const line = getSelectedLine()
+    const line = getSelectedObject()
+    renderCanvas()
     drawText(line)
     renderLineSettings()
     document.querySelector('.editor-container input[type="text"]').value = ''
@@ -88,7 +89,7 @@ function onChangeFontSize(diff) {
     renderCanvas()
 }
 function onRemove() {
-    doRemoveLine()
+    doRemoveObject()
     renderCanvas()
 }
 function onChangeColor(color) {
@@ -112,11 +113,12 @@ function onSaveMeme() {
     renderCanvas()
 }
 function captureImgCanvas() {
-    updateSelectedIdx(-1);
+    updateSelectedLineIdx(-1);
     let meme = getMeme();
     meme.lines.forEach((line) => {
         drawText(line, gMainCtx)
     });
+    meme.stickers.forEach(sticker => drawSticker(sticker,gMainCtx))
     const imgUrl = getMemeImgUrl()
     updateMemeDataUrl(imgUrl)
 }
@@ -137,6 +139,7 @@ function getMemeImgUrl() {
     return imgContent
 }
 //CANVAS MANIPLULATION
+
 function resizeCanvas(img) {
     let elContainer = document.querySelector('.main-meme-container');
     if (img) {
@@ -151,8 +154,15 @@ function resizeCanvas(img) {
     gMainCanvas.height = elContainer.offsetHeight
     renderCanvas()
 }
+function renderCanvas(canvas = gEditCanvas, ctx = gEditCtx, ev) {
+    let meme = getMeme();
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    meme.lines.forEach(line => drawText(line, ctx));
+    meme.stickers.forEach(sticker => drawSticker(sticker))
+    if (!ev) return
+    if (ev.type === 'resize') drawImg(meme.selectedImgId);
+}
 function drawImg(imgId) {
-    gMainCtx.clearRect(0, 0, gMainCanvas.width, gMainCanvas.height)
     const imgUrl = getImgURL(imgId)
     let img = new Image()
     img.src = imgUrl;
@@ -161,16 +171,11 @@ function drawImg(imgId) {
         gMainCtx.drawImage(img, 0, 0, gMainCanvas.width, gMainCanvas.height)
     }
 }
-function renderCanvas(canvas = gEditCanvas, ctx = gEditCtx, ev) {
-    let meme = getMeme();
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    meme.lines.forEach((line) => {
-        drawText(line, ctx)
-    });
-
-    
-    if (!ev) return
-    if (ev.type === 'resize') drawImg(meme.selectedImgId);
+function drawSticker(sticker,ctx=gEditCtx){
+    drawStickerSelection(sticker)
+    let stickerImg = new Image()
+    stickerImg.src = sticker.stickerUrl;
+   ctx.drawImage(stickerImg, sticker.pos.x,sticker.pos.y,sticker.stickerWidth,sticker.stickerHeight)
 }
 function drawText(line, ctx = gEditCtx) {
     const { x, y } = line.pos
@@ -182,17 +187,38 @@ function drawText(line, ctx = gEditCtx) {
         ctx.strokeStyle='black'
         ctx.strokeText(line.txt, x, y)
     }
-    if (line.isSelected && line.txt) {
-        let textWidth = gEditCtx.measureText(line.txt).width;
-        ctx.beginPath()
-        if (line.align === 'center') ctx.rect(x - textWidth / 2 - 5, y + 5, textWidth + 10, -line.fontSize - 10)
-        else if (line.align === 'left') ctx.rect(x - 5, y + 5, textWidth + 10, -line.fontSize - 10)
-        else if (line.align === 'right') ctx.rect(x + 5, y + 5, -textWidth - 10, -line.fontSize - 10)
-        ctx.lineWidth = "2"
-        ctx.strokeStyle = 'white'
-        ctx.stroke()
-    }
+    // create function for selected object 
+    if(line.isSelected && line.txt) drawLineSelection(line)
     ctx.fillText(line.txt, line.pos.x, line.pos.y)
+}
+function drawStickerSelection(sticker){
+    if(!sticker.isSelected)return
+    const {x,y}=sticker.pos;
+    gEditCtx.beginPath()
+   gEditCtx.rect(x - 5, y -5, sticker.stickerWidth + 10, sticker.stickerHeight + 10)
+    gEditCtx.lineWidth = "2"
+    gEditCtx.strokeStyle = 'white'
+    gEditCtx.stroke()
+    //Sizing Circle at the end
+    gEditCtx.beginPath()
+    gEditCtx.lineWidth = 6
+    gEditCtx.arc(x+sticker.stickerWidth+5, y+sticker.stickerHeight + 5, 5, 0, 2 * Math.PI);
+    gEditCtx.strokeStyle = 'white'
+    gEditCtx.stroke();
+    gEditCtx.fillStyle = 'blue'
+    gEditCtx.fill()
+}
+
+function drawLineSelection(line){
+    let textWidth = gEditCtx.measureText(line.txt).width;
+    const {x,y}=line.pos
+    gEditCtx.beginPath()
+    if (line.align === 'center') gEditCtx.rect(x - textWidth / 2 - 5, y + 5, textWidth + 10, -line.fontSize - 10)
+    else if (line.align === 'left') gEditCtx.rect(x - 5, y + 5, textWidth + 10, -line.fontSize - 10)
+    else if (line.align === 'right') gEditCtx.rect(x + 5, y + 5, -textWidth - 10, -line.fontSize - 10)
+    gEditCtx.lineWidth = "2"
+    gEditCtx.strokeStyle = 'white'
+    gEditCtx.stroke()
 }
 
 function onCanvasClick(ev) {
@@ -200,33 +226,53 @@ function onCanvasClick(ev) {
     const pos = getEvPos(ev)
     const meme = getMeme()
     let selectedIdx = meme.lines.findIndex(line => isLineClicked(pos, line))
-    updateSelectedIdx(selectedIdx);
+    updateSelectedLineIdx(selectedIdx);
+    console.log(selectedIdx)
+    if(selectedIdx === -1) {
+        selectedIdx=meme.stickers.findIndex(sticker=> isStickerClicked(pos,sticker))
+        updateSelectedStickerIdx(selectedIdx)
+        if(selectedIdx!==-1) {
+            if(isSizingClicked(pos,meme.stickers[meme.selectedStickerIdx])){
+                gIsResize=true
+                return;
+            }
+        }
+    }
+    else  updateSelectedStickerIdx(-1)
     renderCanvas()
     renderLineSettings()
     if (selectedIdx === -1) return
-    startDrag(pos)
+    startDragMove(pos)
 }
-function onFinishDrag(ev) {
-   
+function onFinishDrag() {
     gIsDrag = false;
+    gIsResize=false
     document.body.style.cursor = 'auto'
     
 }
-function startDrag(pos) {
+function startDragMove(pos) {
     gIsDrag = true;
     gStartPos = pos
     document.body.style.cursor = 'grabbing'
 }
 function onDrag(ev) {
-    if (!gIsDrag) return
+    if (!gIsDrag&&!gIsResize) return
     console.log('dragging')
-    const pos = getEvPos(ev)
-    const dX = pos.x - gStartPos.x
-    const dY = pos.y - gStartPos.y
-    const line = getSelectedLine();
-    line.pos.x += dX
-    line.pos.y += dY
-    gStartPos = pos
+    const {x,y} = getEvPos(ev)
+    const obj = getSelectedObject();
+    if(gIsDrag){
+        const dX = x - gStartPos.x
+        const dY = y - gStartPos.y
+        obj.pos.x += dX
+        obj.pos.y += dY
+        gStartPos = {x,y}
+    }
+    
+    else//it is in resizing mode 
+    {
+        obj.stickerWidth=x-obj.pos.x
+        obj.stickerHeight=y-obj.pos.y
+    }
     renderCanvas()
 }
 
@@ -269,6 +315,47 @@ function isLineClicked(pos, line) {
             && x > line.pos.x - textWidth / 2 - 10
     }
 }
+function isStickerClicked(pos,sticker){
+    const width=sticker.stickerWidth
+    const height=sticker.stickerHeight
+    const{x,y}=pos
+    return (x > sticker.pos.x - 10
+            && x < sticker.pos.x + width+ 10)&&((y > sticker.pos.y 
+                && y < sticker.pos.y + height+10))
+}
+function isSizingClicked(pos,sticker){
+    const{x,y}=pos
+    const endX=sticker.pos.x+sticker.stickerWidth
+    const endY=sticker.pos.y +sticker.stickerHeight
+    return (x > endX
+        && x < endX+10)&&((y > endY - 5
+            && y < sticker.pos.y + endY + 5))
+}
+// --------------- DRAG N DROP ----------//
+
+function onDragImg(ev){
+    ev.dataTransfer.setData('stickerUrl', ev.target.src)
+    ev.dataTransfer.setData('stickerWidth',ev.target.width)
+    ev.dataTransfer.setData('stickerHeight',ev.target.height)
+}
+function onDropImg(ev){
+    const stickerUrl=ev.dataTransfer.getData('stickerUrl')
+    const stickerWidth =+ev.dataTransfer.getData('stickerWidth')
+    const stickerHeight=+ev.dataTransfer.getData('stickerHeight')
+    const pos=getEvPos(ev)
+    const isSelected=true
+    const sticker={stickerUrl,pos,stickerWidth,stickerHeight,isSelected}
+    addSticker(sticker)
+    updateSelectedLineIdx(-1)
+    drawSticker(sticker)
+    renderCanvas();
+    renderLineSettings()
+   
+}
+function allowDrop(ev){
+    ev.preventDefault()
+}
+
 
 
 
@@ -306,6 +393,28 @@ function doUploadImg(elForm, onSuccess) {
             console.error(err)
         })
 }
+//---------------------Input Image------------------------//
+function onImgInput(ev) {
+    loadImageFromInput(ev, renderImg)
+   
+}
+
+function loadImageFromInput(ev, onImageReady) {
+    // document.querySelector('.share-container').innerHTML = ''
+    var reader = new FileReader()
+    reader.onload = function (event) {
+        var img = new Image()
+        img.onload = onImageReady.bind(null, img)
+        img.src = event.target.result
+        addImg(img)
+    }
+    reader.readAsDataURL(ev.target.files[0])
+    updateSelectedImgId(getImgs().length+1)
+}
+function renderImg(img) {
+    gMainCtx.drawImage(img, 0, 0, gMainCanvas.width, gMainCanvas.height);
+}
+
 /////////-----------------------------------------------------
 
 ////GALLERY FUNCTIONS////////////

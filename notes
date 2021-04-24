@@ -1,3 +1,9 @@
 - clicking on the pic in gallery and sending the imgID, rendering the page and calling drawImg(imgID);
 -render the inputs and the editor buttons to set the value that were on the element previously 
 -rect upon selection 
+
+// design layout 
+nbatopshot.com - product page - function buttons 
+giphy - image layout and presention, color scheme 
+
+

@@ -8,11 +8,19 @@ function getSelectedLineIdx() {
     return gMeme.selectedLineIdx;
 }
 
-function getSelectedLine() {
+function getSelectedObject() {
+    let idx=getSelectedLineIdx()
+    if (idx===-1){
+        idx=getSelectedStickerIdx();
+        console.log(gMeme.stickers[idx])
+        return gMeme.stickers[idx]
+    } 
     return gMeme.lines[gMeme.selectedLineIdx];
 }
 
-
+function getSelectedStickerIdx(){
+    return gMeme.selectedStickerIdx;
+}
 function getMeme() {
     return gMeme;
 }
@@ -24,7 +32,7 @@ function getMemes(){
 function updateMemeText(textInput, lineIdx) {
     gMeme.lines[lineIdx].txt = textInput;
 }
-function updateSelectedIdx(idx) {
+function updateSelectedLineIdx(idx) {
     gMeme.lines.forEach(line=>line.isSelected=false)
     if(idx!==-1)gMeme.lines[idx].isSelected=true
     gMeme.selectedLineIdx = idx;
@@ -61,6 +69,14 @@ function updateStrokeSize(diff) {
 function updateMemeDataUrl(imgUrl){
     gMeme.dataUrl=imgUrl
 }
+function updateSelectedStickerIdx(idx){
+    gMeme.stickers.forEach(sticker=>sticker.isSelected=false)
+    if(idx!==-1)gMeme.stickers[idx].isSelected=true
+    gMeme.selectedStickerIdx=idx;
+}
+function updateSelectedImgId(id){
+    gMeme.selectedImgId=id
+}
 //------DO-----
 
 function setMeme(memeId){
@@ -93,12 +109,13 @@ function doAddLine(canvas) {
         }
     }
     gMeme.lines.push(line)
-    updateSelectedIdx(gMeme.lines.length - 1)
+    updateSelectedLineIdx(gMeme.lines.length - 1)
     
 }
 
-function doRemoveLine() {
-    gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+function doRemoveObject() {
+    if(gMeme.selectedLineIdx!==-1)gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+    if(gMeme.selectedStickerIdx!==-1) gMeme.stickers.splice(gMeme.selectedStickerIdx, 1)
 }
 
 function doToggleStroke(isStroke) {
@@ -125,6 +142,12 @@ function resetMeme(){
 function setFontFamily(family){
     gMeme.lines[gMeme.selectedLineIdx].fontFamily=family
 }
+function addSticker(sticker){
+    gMeme.stickers.push(sticker)
+    updateSelectedStickerIdx(gMeme.stickers.length-1)
+    console.log(gMeme.selectedStickerIdx)
+    
+}
 //------------------------------LOCAL FUNCTIONS---------------------//
 
 function _createMemes() {
@@ -139,6 +162,7 @@ function _createMeme() {
         selectedImgId: 0,
         selectedImgUrl:'',
         selectedLineIdx: 0,
+        selectedStickerIdx:-1,
         lines: [{
             txt: '',
             align: 'center',
@@ -153,6 +177,7 @@ function _createMeme() {
                 y: 50,
             }
         }],
+        stickers:[],
         dataUrl:''
     }
     return meme;

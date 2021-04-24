@@ -11,7 +11,7 @@
 </head>
 
 <body onload="init()">
-    
+
     <div class="main-screen" onclick="toggleMenu()"></div>
 
     <header>
@@ -19,15 +19,15 @@
             <div class="logo">
                 <img onclick="onMoveToGallery()" src="./img/icons/logo.svg" alt="">
             </div>
-            <nav class="nav-bar"> 
-                <ul class="main-nav flex align-center clean-list">
+            <nav class="nav-bar">
+                <ul class="main-nav flex align-center clean-list ">
                     <li><a href="#" onclick="onMoveToGallery()">Gallery</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#" onclick="onMoveToMemes()">Memes</a></li>
                 </ul>
             </nav>
             <!-- <button class="btn-menu" onclick="toggleMenu()" >=</button> -->
-            <img class="menu-icon"src="./img/menu-icon.png" width="38" height="38" onclick="toggleMenu()">
+            <img class="menu-icon" src="./img/menu-icon.png" width="38" height="38" onclick="toggleMenu()">
         </div>
         </div>
     </header>
@@ -51,42 +51,117 @@
                 <div class="main-meme-container">
                     <canvas width="500" height="500" class="main-meme-canvas"></canvas>
                     <canvas width="500" height="500" onmousemove="onDrag(event)" class="edit-canvas"
-                        onmousedown="onCanvasClick(event)" onmouseup="onFinishDrag(event)"></canvas>
+                        onmousedown="onCanvasClick(event)" onmouseup="onFinishDrag(event)" ondrop="onDropImg(event)"
+                        ondragover="allowDrop(event)"></canvas>
                 </div>
                 <div class="editor-background">
                     <div class="editor-container flex-column">
                         <input type="text" placeholder="enter a line to the meme" oninput="onInputText(this.value)">
-                        <div class="edit-action-buttons flex justify-center">
-                            <button class="btn-actions btn-add" onclick="onAddLine()">
-                                <svg aria-hidden="true" width="30" height="30" focusable="false" data-prefix="fas" data-icon="plus" class="svg-inline--fa fa-plus fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="white" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
-                            </button>
-                            <button class=" btn-actions btn-remove" onclick="onRemove()">
-                                <svg aria-hidden="true" width="30" height="30"focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="white" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
-                            </button>
-            
-                        </div>
+
                         <div class="edit-line-settings">
-                            <button class="editor-btn btn-line-settings" onclick="onChangeFontSize(1)">
-                                A+
+                            <button onclick="onChangeFontSize(+1)">
+                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    viewBox="0 0 591.804 591.804" style="enable-background:new 0 0 591.804 591.804;"
+                                    xml:space="preserve">
+                                    <g>
+                                        <g>
+                                            <path d="M581.541,285.6h-71.4v-71.4c0-5.712-4.488-10.2-10.2-10.2s-10.2,4.488-10.2,10.2v71.4h-71.4
+       c-5.712,0-10.2,4.488-10.2,10.2s4.488,10.2,10.2,10.2h71.4v71.4c0,5.712,4.488,10.2,10.2,10.2s10.2-4.488,10.2-10.2V306h71.4
+       c5.712,0,10.2-4.488,10.2-10.2S587.049,285.6,581.541,285.6z" />
+                                            <path d="M244.125,6.324C242.697,2.448,238.821,0,234.741,0c-4.08,0-7.956,2.652-9.588,6.528l-224.4,571.2
+       c-2.04,5.304,0.612,11.22,5.712,13.26c5.304,2.04,11.22-0.612,13.26-5.712l77.52-197.472h274.584l77.52,197.472
+       c1.632,4.08,5.508,6.528,9.588,6.528c1.224,0,2.448-0.204,3.672-0.612c5.304-2.04,7.752-7.956,5.712-13.26L244.125,6.324z
+        M105.405,367.2L234.741,37.944L364.077,367.2H105.405z" />
+                                            <path d="M230.049,112.2l-87.108,221.544c-1.02,2.652,0.204,5.508,2.856,6.528c0.612,0.204,1.224,0.408,1.836,0.408
+       c2.04,0,3.876-1.224,4.692-3.264l87.108-221.544c1.02-2.652-0.204-5.508-2.856-6.528
+       C233.925,108.12,231.069,109.548,230.049,112.2z" />
+                                            <path d="M116.829,414.12c-2.652-1.02-5.508,0.204-6.528,2.856L46.449,579.36c-1.02,2.652,0.204,5.508,2.856,6.528
+       c0.612,0.204,1.224,0.408,1.836,0.408c2.04,0,3.876-1.224,4.692-3.264l63.852-162.384
+       C120.705,418.2,119.277,415.14,116.829,414.12z" />
+                                        </g>
+                                    </g>
+                                </svg>
                             </button>
-                            <button class="editor-btn btn-line-settings" onclick="onChangeFontSize(-1)">A-</button>
-                            <form>
+                            <button onclick="onChangeFontSize(-1)">
+                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    viewBox="0 0 591.804 591.804" style="enable-background:new 0 0 591.804 591.804;"
+                                    xml:space="preserve">
+                                    <g>
+                                        <g>
+                                            <path
+                                                d="M581.541,285.6h-163.2c-5.712,0-10.2,4.488-10.2,10.2s4.488,10.2,10.2,10.2h163.2c5.712,0,10.2-4.488,10.2-10.2S587.049,285.6,581.541,285.6z" />
+                                            <path d="M244.125,6.324C242.697,2.448,238.821,0,234.741,0c-4.08,0-7.956,2.652-9.588,6.528l-224.4,571.2
+			c-2.04,5.304,0.612,11.22,5.712,13.26c5.304,2.04,11.22-0.612,13.26-5.712l77.52-197.472h274.584l77.52,197.472
+			c1.632,4.08,5.508,6.528,9.588,6.528c1.224,0,2.448-0.204,3.672-0.612c5.304-2.04,7.752-7.956,5.712-13.26L244.125,6.324z
+			 M105.405,367.2L234.741,37.944L364.077,367.2H105.405z" />
+                                            <path d="M230.049,112.2l-87.108,221.544c-1.02,2.652,0.204,5.508,2.856,6.528c0.612,0.204,1.224,0.408,1.836,0.408
+			c2.04,0,3.876-1.224,4.692-3.264l87.108-221.544c1.02-2.652-0.204-5.508-2.856-6.528
+			C233.925,108.12,231.069,109.548,230.049,112.2z" />
+                                            <path d="M116.829,414.12c-2.652-1.02-5.508,0.204-6.528,2.856L46.449,579.36c-1.02,2.652,0.204,5.508,2.856,6.528
+			c0.612,0.204,1.224,0.408,1.836,0.408c2.04,0,3.876-1.224,4.692-3.264l63.852-162.384
+			C120.705,418.2,119.277,415.14,116.829,414.12z" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </button>
+                            <label for="fill-color">
+                                <input type="color" id="fill-color" value="#ffffff"
+                                    onchange="onChangeColor(this.value)">
+                                <img class="btn-editor" src="./img/icons/fill-color.png" alt="">
+                            </label>
+                            <label for="align-left">
                                 <input type="radio" id="align-left" value="left" name='text-align'
-                                onchange="onChangeAlign('left')" hidden>
-                                <label  for="align-left">
-                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="align-left" width="30" height="30" class="svg-inline--fa fa-align-left fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M12.83 352h262.34A12.82 12.82 0 0 0 288 339.17v-38.34A12.82 12.82 0 0 0 275.17 288H12.83A12.82 12.82 0 0 0 0 300.83v38.34A12.82 12.82 0 0 0 12.83 352zm0-256h262.34A12.82 12.82 0 0 0 288 83.17V44.83A12.82 12.82 0 0 0 275.17 32H12.83A12.82 12.82 0 0 0 0 44.83v38.34A12.82 12.82 0 0 0 12.83 96zM432 160H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 256H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16z"></path></svg>
-                                </label>
+                                    onchange="onChangeAlign('left')" hidden>
+                                <svg class="btn-editor" aria-hidden="true" focusable="false" data-prefix="fas"
+                                    data-icon="align-left" width="30" height="30"
+                                    class="svg-inline--fa fa-align-left fa-w-14" role="img"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                    <path fill="currentColor"
+                                        d="M12.83 352h262.34A12.82 12.82 0 0 0 288 339.17v-38.34A12.82 12.82 0 0 0 275.17 288H12.83A12.82 12.82 0 0 0 0 300.83v38.34A12.82 12.82 0 0 0 12.83 352zm0-256h262.34A12.82 12.82 0 0 0 288 83.17V44.83A12.82 12.82 0 0 0 275.17 32H12.83A12.82 12.82 0 0 0 0 44.83v38.34A12.82 12.82 0 0 0 12.83 96zM432 160H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 256H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16z">
+                                    </path>
+                                </svg>
+                            </label>
+                            <label for="align-center">
                                 <input type="radio" id="align-center" name='text-align' value="center"
-                                onchange="onChangeAlign('center')" hidden checked>
-                                <label  for="align-center">
-                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="align-center" width="30" height="30" class="svg-inline--fa fa-align-center fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M432 160H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 256H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM108.1 96h231.81A12.09 12.09 0 0 0 352 83.9V44.09A12.09 12.09 0 0 0 339.91 32H108.1A12.09 12.09 0 0 0 96 44.09V83.9A12.1 12.1 0 0 0 108.1 96zm231.81 256A12.09 12.09 0 0 0 352 339.9v-39.81A12.09 12.09 0 0 0 339.91 288H108.1A12.09 12.09 0 0 0 96 300.09v39.81a12.1 12.1 0 0 0 12.1 12.1z"></path></svg>
-                                </label>
+                                    onchange="onChangeAlign('center')" hidden checked>
+                                <svg class="btn-editor" aria-hidden="true" focusable="false" data-prefix="fas"
+                                    data-icon="align-center" width="30" height="30"
+                                    class="svg-inline--fa fa-align-center fa-w-14" role="img"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                    <path fill="currentColor"
+                                        d="M432 160H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 256H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM108.1 96h231.81A12.09 12.09 0 0 0 352 83.9V44.09A12.09 12.09 0 0 0 339.91 32H108.1A12.09 12.09 0 0 0 96 44.09V83.9A12.1 12.1 0 0 0 108.1 96zm231.81 256A12.09 12.09 0 0 0 352 339.9v-39.81A12.09 12.09 0 0 0 339.91 288H108.1A12.09 12.09 0 0 0 96 300.09v39.81a12.1 12.1 0 0 0 12.1 12.1z">
+                                    </path>
+                                </svg>
+                            </label>
+                            <label for="align-right">
                                 <input type="radio" id="align-right" value="right" name='text-align'
                                     onchange="onChangeAlign('right')" hidden>
-                                <label  for="align-right">
-                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="align-right" width="30" height="30" class="svg-inline--fa fa-align-right fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M16 224h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm416 192H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm3.17-384H172.83A12.82 12.82 0 0 0 160 44.83v38.34A12.82 12.82 0 0 0 172.83 96h262.34A12.82 12.82 0 0 0 448 83.17V44.83A12.82 12.82 0 0 0 435.17 32zm0 256H172.83A12.82 12.82 0 0 0 160 300.83v38.34A12.82 12.82 0 0 0 172.83 352h262.34A12.82 12.82 0 0 0 448 339.17v-38.34A12.82 12.82 0 0 0 435.17 288z"></path></svg>
-                                </label>
-                            </form>
+                                <svg class="btn-editor" aria-hidden="true" focusable="false" data-prefix="fas"
+                                    data-icon="align-right" width="30" height="30"
+                                    class="svg-inline--fa fa-align-right fa-w-14" role="img"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                    <path fill="currentColor"
+                                        d="M16 224h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm416 192H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm3.17-384H172.83A12.82 12.82 0 0 0 160 44.83v38.34A12.82 12.82 0 0 0 172.83 96h262.34A12.82 12.82 0 0 0 448 83.17V44.83A12.82 12.82 0 0 0 435.17 32zm0 256H172.83A12.82 12.82 0 0 0 160 300.83v38.34A12.82 12.82 0 0 0 172.83 352h262.34A12.82 12.82 0 0 0 448 339.17v-38.34A12.82 12.82 0 0 0 435.17 288z">
+                                    </path>
+                                </svg>
+                            </label>
+                            <label for="toggle-stroke">
+                                <svg class="btn-editor" aria-hidden="true" focusable="false" data-prefix="fas"
+                                    data-icon="border-style" width="30" height="30"
+                                    class="svg-inline--fa fa-border-style fa-w-14" role="img"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                    <path fill="currentColor"
+                                        d="M240 416h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-96 0h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm192 0h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm96-192h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 96h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 96h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-288h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-96H32A32 32 0 0 0 0 64v400a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16V96h368a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z">
+                                    </path>
+                                </svg>
+                            </label>
+                            <input type="checkbox" id="toggle-stroke" name="toggle-stroke" onclick="onToggleStroke()"
+                                hidden>
+                            <button class="btn-editor btn-line-settings" onclick="onChangeStrokeSize(1)">+</button>
+                            <button class="btn-editor btn-line-settings" onclick="onChangeStrokeSize(-1)">-</button>
+
                             <input list="font-list" oninput="onChangeFontFamily(this.value)" />
                             <datalist id="font-list">
                                 <option value="impact">
@@ -94,40 +169,30 @@
                                 <option value="sans-serif">
                                 <option value="serif">
                             </datalist>
-
-                            
-                                <label  for="fill-color">
-                                    <img src="./img/icons/fill-color.png" alt="">
-                                </label>
-                                <input type="color" id="fill-color" value="#ffffff" onchange="onChangeColor(this.value)">
-            
                         </div>
-                        <div class="edit-stroke-settings flex justify-center ">
-                            <label  for="toggle-stroke">
-                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="border-style" width="30" height="30" class="svg-inline--fa fa-border-style fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M240 416h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-96 0h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm192 0h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm96-192h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 96h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 96h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-288h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-96H32A32 32 0 0 0 0 64v400a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16V96h368a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
-                            </label>
-                            <input type="checkbox" id="toggle-stroke" name="toggle-stroke" onclick="onToggleStroke()" hidden>
-                            <button class="editor-btn btn-line-settings" onclick="onChangeStrokeSize(1)">+</button>
-                            <button class="editor-btn btn-line-settings" onclick="onChangeStrokeSize(-1)">-</button>
+                        <div class="edit-action-buttons flex space-between">
+                            <button class="btn-actions" onclick="onAddLine()">Add</button>
+                            <label for="img-input-file" class="btn-actions">Upload</label>
+                            <input type="file" id="img-input-file" name="image" onchange="onImgInput(event)" hidden />
+                            <button class=" btn-actions" onclick="onRemove()">Delete</button>
+                        </div>
+                        <div class="sticker-container  ">
+                            <img src="./img/s-1.gif" alt="" draggable="true" ondragstart=onDragImg(event)>
+                            <img src="./img/s-2.gif" alt="" draggable="true" ondragstart=onDragImg(event)>
+                            <img src="./img/s-4.gif" alt="" draggable="true" ondragstart=onDragImg(event)>
                         </div>
                         <div class="edit-last-actions flex space-between">
-                            <button class="btn-last-actions btn-add" onclick="onSaveMeme()">Save</button>
-                            <a class="btn-last-actions btn-download" href="#" download="myAmazingMeme.jpg"
+                            <button onclick="onSaveMeme()" class="btn-actions">Save</button>
+                            <a class="btn-actions" href="#" download="myAmazingMeme.jpg"
                                 onclick="onDownloadImg(this)">Download</a>
                             <form action="" method="POST" enctype="multipart/form-data"
                                 onsubmit="uploadImg(this, event)">
                                 <input name="img" id="imgData" type="hidden" />
-                                <button class="btn-last-actions btn-share">Share</button>
+                                <button class="btn-actions">Share</button>
                                 <div class="share-container"></div>
                             </form>
                         </div>
-                        <div class="sticker-container  ">
-                            <img src="./img/s-1.gif" alt="" draggable="true">
-                            <img src="./img/s-2.gif" alt="" draggable="true">
-                            <img src="./img/s-4.gif" alt="" draggable="true">
-                        </div>
                     </div>
-
                 </div>
             </div>
         </section>
